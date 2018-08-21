@@ -29,14 +29,13 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                  <button style="margin-bottom: 10px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-addbarang"><i class="fa fa-plus-square"></i>&nbsp;Tambah Barang</button>
                   <div class="table-responsive">
                     <table id="example" class="table table-bordered table-hover" role="grid" aria-describedby="example1_info" data>
                       <thead>
                         <tr>
                           <th style="text-align: center;">No. </th>
+                          <th style="text-align: center;">Nama Peminjam. </th>
                           <th style="text-align: center;">Supplier</th>
-                          <th style="text-align: center;">Kode Barang</th>
                           <th style="text-align: center;">Nama Barang</th>
                           <th style="text-align: center;">Jml Barang</th>
                           <th style="text-align: center;">Keterangan</th>
@@ -44,25 +43,27 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                       </thead>
                       <tbody>
                         @foreach($kode as $key)
+                        <?php 
+                        $nama = \App\Siswa::where('id', $key->id_siswa)->value('namalengkap');
+                        $supplier = \App\Income::where('id', $key->id_barang)->value('nm_supplier');
+                        $nama_barang = \App\Income::where('id', $key->id_barang)->value('nama_barang');
+                        $jml_barang = \App\Income::where('id', $key->id_barang)->value('qty');
+                         ?>
                         <tr>
                           <td style="text-align: center;">{{$key->id}}</td>
+                          <td style="text-align: center;">{{$nama}}</td>
                           <td style="text-align: center;">
-                            <a href="{{url('supplier', [$key->nm_supplier])}}">{{ $key->nm_supplier }}</a></td>
-                            <td style="text-align: center;">{{$key->kode_barang}}</td>
-                            <td style="text-align: center;">{{$key->nama_barang}}</td>
-                            <td style="text-align: center;">{{$key->qty}}
+                            <a href="{{url('supplier', [$key->nm_supplier])}}">{{ $supplier }}</a></td>
+                            <td style="text-align: center;">{{$nama_barang}}</td>
+                            <td style="text-align: center;">{{$jml_barang}}
                              <br><i>-{{ $barang->jumlah_brg }}</i> <b>{{$barang->keterangan}}</b>
                             </td>
                             <td style="text-align: center;">
-                              @if(is_null($key->keterangan))
-                              <?php
-                              $a = \App\Peminjaman::where('id_barang', $key->id)->value('id_siswa');
-                              $siswa = \App\Siswa::where('id', $a)->value('namalengkap');
-                              ?>
-                              <span class="label label-danger"><i class="fa fa-close"></i>&nbsp;{{ $key->status }}
-                              </span> <br> {{ $siswa }}
-                              @elseif($key->keterangan == "Diterima")
-                              <span class="label label-info"><i class="fa fa-check"></i>&nbsp;{{ $key->keterangan }}</span>
+                              @if($key->keterangan == "Rusak")
+                              <span class="label label-danger"><i class="fa fa-close"></i>&nbsp;{{ $key->keterangan }}
+                              </span> <br>
+                              @elseif($key->keterangan == "Hilang")
+                              <span class="label label-warning"><i class="fa fa-close"></i>&nbsp;{{ $key->keterangan }}</span>
                               @endif
                             </td>
                           </tr>
@@ -72,31 +73,6 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                     </div>
                   </div>
                   <div class="modal fade in" id="modal-addbarang" style="padding-right: 15px;">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span></button>
-                            <center><h4 class="modal-title">Tambah Barang</h4></center>
-                          </div>
-                          <div class="modal-body">
-                            <div class="form-group">
-                              <div class="col-sm-3">
-                                <a class="btn btn-primary" style="margin-left: 280px;" href="{{url('barang/add')}}">Barang diTerima</a>
-                              </div>
-                              <div class="col-sm-3">
-                                <a class="btn btn-primary" href="{{url('barang/addtolak')}}">Barang diTolak</a>
-                              </div>
-                              <br>
-                              <br>
-                              <button style="margin-left: 240px;" type="button" class="btn btn-default pull-left" data-dismiss="modal">Kembali</button>
-                              <br>
-                              <br>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
                       <script type="text/javascript" src="{{asset('js/datatable/jquery.dataTables.min.js')}}"></script>
                       <script type="text/javascript" src="{{asset('js/datatable/dataTables.bootstrap.min.js')}}"></script>
                       <script src="{{asset('js/sweetalert.min.js')}}"></script>

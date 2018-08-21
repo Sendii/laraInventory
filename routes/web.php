@@ -79,16 +79,19 @@ Route::middleware('auth')->group(function() {
 		Route::get('history/nama/{nama}','BarangController@terpinjamNama');
 		Route::get('history/kelas/{kelas}','BarangController@terpinjamKelas');
 
-		Route::get('rh', 'BarangRHController@allRh');
-		Route::get('{kode_barang}', 'BarangRHController@kodeBarang');
-		Route::get('rusak', 'BarangController@barangRusak');
-
 		Route::group(['prefix' => 'mutasi'], function() {
 			Route::get('/', 'BarangController@mutasiAll');
 			Route::get('keluar', 'BarangController@mutasiKeluar');
 			Route::get('masuk', 'BarangController@mutasiMasuk');
 		});
 	});
+	Route::group(['prefix' => 'barang2'], function() {
+		Route::get('/', 'BarangRHController@allRh');
+		Route::get('hilang', 'BarangRHController@barangHilang');
+		Route::get('rusak', 'BarangRHController@barangRusak');
+		Route::get('{kode_barang}', 'BarangRHController@kodeBarang');
+	});
+	
 	Route::group(['prefix' => 'siswa'] , function(){
 		Route::get('/', 'HomeController@allSiswa');
 		Route::post('save', 'HomeController@saveSiswa');

@@ -135,7 +135,7 @@ class BarangController extends Controller
       $edit['barang'] = \App\Peminjaman::find($id);
       $editbarang = \App\Peminjaman::where('id', $id)->value('id_barang');
       $edit['a'] = \App\Income::find($editbarang);
-
+      
       return view('admin/barang.kembalikan')->with($edit);
     }
 
@@ -160,7 +160,7 @@ class BarangController extends Controller
          $barangbermasalah->id_siswa = $kelas;
          $kembalikan->save();
         $barangbermasalah->save();
-        return redirect('barang/rh');  
+        return redirect('barang2');  
       }elseif($r->input('keterangan') == "Rusak"){
         $barang->qty = $r->input('stock');
         $kembalikan->keterangan = $r->input('keterangan');
@@ -174,9 +174,9 @@ class BarangController extends Controller
          $barangbermasalah->id_siswa = $kelas;
          $kembalikan->save();
         $barangbermasalah->save();  
-        return redirect('barang/rh');
+        return redirect('barang2');
       }elseif($r->input('keterangan') == "Bagus"){
-        $barang->status = $r->input('keterangan');
+      $barang->status = $r->input('keterangan');
       $barang->qty = $r->input('stock') + $r->input('jumlah');
       $barang->save();
 

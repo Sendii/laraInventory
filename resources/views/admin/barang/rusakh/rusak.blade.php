@@ -25,7 +25,7 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
             <div class="box-header">
               <center>
                 <center>
-                  <h2 style="font-size: 25px" class="box-title">Data Barang Bermasalahs</h2></center>
+                  <h2 style="font-size: 25px" class="box-title">Data Barang Rusak</h2></center>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -39,11 +39,10 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                           <th style="text-align: center;">Nama Barang</th>
                           <th style="text-align: center;">Jumlah Barang</th>
                           <th style="text-align: center;">Tgl Peminjaman/Pengembalian</th>
-                          <th style="text-align: center;">Keterangan</th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($rusakh as $key)
+                        @foreach($rusak as $key)
                         <?php 
                         $namapeminjam = \App\Siswa::where('id', $key->id_siswa)->value('namalengkap');
                         $namabarang = \App\Income::where('id', $key->id_barang)->value('nama_barang');
@@ -59,15 +58,6 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                             <td style="text-align: center;">{{ $namabarang }}</td>
                             <td style="text-align: center;">{{$key->jumlah_brg}}</td>
                             <td style="text-align: center;">{{$waktuminjam."/".$waktubalikin}}</td>
-                            <td style="text-align: center;">
-                              @if($key->keterangan == "Hilang")
-                              <span class="label label-danger"><i class="fa fa-close"></i>&nbsp;{{ $key->keterangan }}</span>
-                              @elseif($key->keterangan == "Rusak")
-                              <span class="label label-warning"><i class="fa fa-close"></i>&nbsp;{{ $key->keterangan }}</span>
-                              @elseif(is_null($key->keterangan))
-                              <span class="label label-warning"><i class="fa fa-warning"></i>&nbsp;{{ $key->status }}</span>
-                              @endif
-                            </td>
                           </tr>
                           @endforeach
                         </tbody>

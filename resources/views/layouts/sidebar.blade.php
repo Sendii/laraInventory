@@ -155,7 +155,7 @@
                         </a>
                         <ul class="treeview-menu" style="display: none;">
                             <li class="treeview">
-                                <a href=" {{url('/allPpbj')}} "><i class="fa fa-desktop"></i> Data Barang 1
+                                <a href=" {{url('#')}} "><i class="fa fa-desktop"></i> Data Barang 1
                                     <span class="pull-right-container">
                                         <i class="fa fa-angle-left pull-right"></i>
                                     </span>
@@ -167,15 +167,15 @@
                                 </ul>
                             </li>
                             <li class="treeview">
-                                <a href=" {{url('/allPpbj')}} "><i class="fa fa-desktop"></i> Data Barang 2
+                                <a href=" {{url('#')}} "><i class="fa fa-desktop"></i> Data Barang 2
                                     <span class="pull-right-container">
                                         <i class="fa fa-angle-left pull-right"></i>
                                     </span>
                                 </a>
                                 <ul class="treeview-menu" style="display: none;">
-                                    <li><a href="{{url('barang/rh')}}"><i class="fa fa-book"></i>Semua Barang</a></li>
-                                    <li><a href="{{url('barang/hilang')}}"><i class="fa fa-book"></i> Barang Hilang</a></li>
-                                    <li><a href=" {{url('barang/rusak')}} "><i class="fa fa-download"></i> Barang Rusak</a></li>
+                                    <li><a href="{{url('barang2')}}"><i class="fa fa-book"></i>Semua Barang</a></li>
+                                    <li><a href="{{url('barang2/hilang')}}"><i class="fa fa-book"></i> Barang Hilang</a></li>
+                                    <li><a href=" {{url('barang2/rusak')}} "><i class="fa fa-download"></i> Barang Rusak</a></li>
                                 </ul>
                             </li>
                         </ul>
