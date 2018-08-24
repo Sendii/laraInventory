@@ -28,7 +28,7 @@ class Admin
         if (Auth::user() &&  Auth::user()->akses == 'Admin') {
             return $next($request);
         }else{
-            return redirect('/');
+            return back();
         }
         return redirect('/');
     }

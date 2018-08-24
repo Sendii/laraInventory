@@ -29,7 +29,9 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                  @if (Auth::user() && Auth::user()->akses == 'Admin')
                   <button style="margin-bottom: 10px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-addbarang"><i class="fa fa-plus-square"></i>&nbsp;Tambah Barang</button>
+                  @endif
                   <div class="table-responsive">
                     <table id="example" class="table table-bordered table-hover" role="grid" aria-describedby="example1_info" data>
                       <thead>
@@ -40,14 +42,17 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                           <th style="text-align: center;">Nama Barang</th>
                           <th style="text-align: center;">Stock Barang</th>
                           <th style="text-align: center;">Keterangan</th>
+                          <th style="text-align: center;">Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         @foreach($barangs as $key)
                         <tr>
                           <td style="text-align: center;">{{$key->id}}</td>
+                          @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <td style="text-align: center;">
                             <a href="{{url('supplier', [$key->nm_supplier])}}">{{ $key->nm_supplier }}</a></td>
+                            @endif
                             <td style="text-align: center;">{{$key->kode_barang}}</td>
                             <td style="text-align: center;">{{$key->nama_barang}}</td>
                             <td style="text-align: center;">{{$key->qty}}</td>
@@ -59,6 +64,11 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                               @elseif(is_null($key->keterangan))
                               <span class="label label-warning"><i class="fa fa-warning"></i>&nbsp;{{ $key->status }}</span>
                               @endif
+                            </td>
+                            <td style="text-align: center;">
+                              <a class="btn btn-warning" href="{{url('barang/mutasi/masuk/'.$key->id)}}"><i class="fa fa-edit"></i> Mut. Masuk</a>
+                              <a href="{{url('barang/mutasi/keluar/'.$key->id)}}"><button class="btn btn-info"><i class="fa fa-edit"></i>Mut. Keluar</button></a>
+                              <br>
                             </td>
                           </tr>
                           @endforeach

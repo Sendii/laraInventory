@@ -26,7 +26,9 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                  @if (Auth::user() && Auth::user()->akses == 'Admin')
                   <button style="margin-bottom: 10px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-addSiswa"><i class="fa fa-plus-square"></i>&nbsp;Tambah Siswa</button>
+                  @endif
                   <div class="table-responsive">
                     <table id="example" class="table table-bordered table-hover" role="grid" aria-describedby="example1_info" data>
                       <thead>
@@ -36,7 +38,9 @@
                           <th style="text-align: center;">Kelas</th>
                           <th style="text-align: center;">Nisn</th>
                           <th style="text-align: center;">Telepon</th>
+                          @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <th style="text-align: center;">Action</th>
+                          @endif
                         </tr>
                       </thead>
                       <tbody>
@@ -44,13 +48,15 @@
                         <tr>
                           <td style="text-align: center;">{{$key->id}}</td>
                           <td style="text-align: center;">{{$key->namalengkap}}</td>
-                          <td style="text-align: center;">{{$key->id_kelas}}</td>
+                          <td style="text-align: center;">{{$key->Kelas->kelas}}</td>
                           <td style="text-align: center;">{{$key->nisn}}</td>
                           <td style="text-align: center;">{{$key->phone}}</td>
+                          @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <td style="text-align: center;">
                             <a href="{{url('siswa/edit/'.$key->id)}}"><button class="btn btn-warning"><i class="fa fa-edit"></i></button></a>
                             <a href="{{url('siswa/delete/'.$key->id)}}" onclick="return confirm('are u sure to delete {{ $key->namalengkap }} ?')"><button class="btn btn-danger"><i class="fa fa-trash-o"></i></button></a>
                           </td>
+                          @endif
                         </tr>
                         @endforeach
                       </tbody>

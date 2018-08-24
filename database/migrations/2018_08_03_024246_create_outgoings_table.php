@@ -15,13 +15,13 @@ class CreateOutgoingsTable extends Migration
     {
         Schema::create('mutasibarang', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('nm_supplier');
-            $table->string('status')->enum(['Bagus', 'Tidak Bagus'])->default('Bagus');
-            $table->integer('banyak_brg')->nullable();
+            $table->text('nm_supplier')->unsigned();
+            $table->integer('id_pelanggan')->unsigned();
+            $table->foreign('id_pelanggan')->references('id')->on('pelanggans')->onDelete('cascade');
             $table->text('kode_barang');
             $table->text('nama_barang');
             $table->integer('qty');
-            $table->string('keterangan')->enum(['Diterima', 'Ditolak']) ->nullable();
+            $table->string('keterangan')->enum(['Masuk', 'Keluar']) ->nullable();
             $table->text('keterangantolak')->nullable();
             $table->timestamps();
         });

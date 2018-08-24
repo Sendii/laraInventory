@@ -26,7 +26,9 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                  <button style="margin-bottom: 10px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-addpelanggan"><i class="fa fa-plus-square"></i>&nbsp;Tambah Pelanggan</button>
+                  @if (Auth::user() && Auth::user()->akses == 'Admin')
+                    <button style="margin-bottom: 10px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-addpelanggan"><i class="fa fa-plus-square"></i>&nbsp;Tambah Pelanggan</button>
+                  @endif
                   <div class="table-responsive">
                     <table id="example" class="table table-bordered table-hover" role="grid" aria-describedby="example1_info" data>
                       <thead>
@@ -37,7 +39,9 @@
                           <th style="text-align: center;">Telepon</th>
                           <th style="text-align: center;">NPWP</th>
                           <th style="text-align: center;">E-Mail</th>
+                          @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <th style="text-align: center;">Action</th>
+                          @endif
                         </tr>
                       </thead>
                       <tbody>
@@ -49,10 +53,12 @@
                           <td style="text-align: center;">{{$key->telepon}}</td>
                           <td style="text-align: center;">{{$key->npwp}}</td>
                           <td style="text-align: center;">{{$key->email}}</td>
+                          @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <td style="text-align: center;">
                             <a href="{{url('pelanggan/edit/'.$key->id)}}"><button class="btn btn-warning"><i class="fa fa-edit"></i></button></a>
                             <a href="{{url('pelanggan/delete/'.$key->id)}}" onclick="return confirm('are u sure to delete {{ $key->nama_outlet }} ? ')"><button class="btn btn-danger"><i class="fa fa-trash-o"></i></button></a>
                           </td>
+                          @endif
                         </tr>
                         @endforeach
                       </tbody>

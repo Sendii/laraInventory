@@ -69,7 +69,12 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                    
+                    @if(Auth::user() && Auth::user()->akses == 'Admin')
+                        <a href="{{ url('/dashboard') }}">Home</a>
+                    @else
+                        <a href="{{ url('/dashboard') }}">Home</a>
+                    @endif
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
@@ -80,13 +85,11 @@
             <div class="content">
                 <div class="title m-b-md">
                     Inventaris'10
-                    <a href="{{url('report')}}" class="btn btn-primary">sa</a>
                 </div>
 
                 <div class="links">
                     <a href="{{url('supplier')}}">Supplier</a>
                     <a href="{{url('pelanggan')}}">Pelanggan</a>
-                    <a href="{{url('home')}}">Home</a>
                     <a href="{{url('pengguna')}}">Users</a>
                     <a href="{{url('about')}}">About</a>
                 </div>

@@ -29,4 +29,10 @@ class SupplierController extends Controller
 
         return view('admin/supplier.barang_supplier')->with(['barangs' => $barang, 'suppliers' => $supplier]);
     }
+
+    public function editSupplier($id) {
+        $data['supplier'] = \App\Supplier::find($id);
+
+        dd($data['supplier']);        
+    }
 }

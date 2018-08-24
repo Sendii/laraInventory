@@ -26,4 +26,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function Outlet() {
+        return $this->belongsTo('App\Pelanggan', 'id_outlet', 'id');
+    }
 }

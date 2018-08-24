@@ -33,7 +33,9 @@
                           <th style="text-align: center;">No. </th>
                           <th style="text-align: center;">Nama user</th>
                           <th style="text-align: center;">Outlet</th>
+                          @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <th style="text-align: center;">Action</th>
+                          @endif
                         </tr>
                       </thead>
                       <tbody>
@@ -47,11 +49,13 @@
                           @if($outlet == "")
                           <td style="text-align: center;"> - </td>
                           @else
-                          <td style="text-align: center;">{{ $outlet }}</td>
+                          <td style="text-align: center;">{{ $key->Outlet->nama_outlet }}</td>
                           @endif
+                          @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <td style="text-align: center;">
                             <a href="{{url('pengguna/edit/'.$key->id)}}"><button class="btn btn-warning"><i class="fa fa-edit"></i></button></a>
                           </td>
+                          @endif
                         </tr>
                         @endforeach
                       </tbody>

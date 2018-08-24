@@ -97,130 +97,130 @@
                                         <a href="{{url('profile')}}" class="btn btn-primary btn-flat" style="border-radius: 3px">Profil</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href=" {{url('auth/logout')}} " class="btn btn-primary btn-flat" style="border-radius: 3px">Keluar</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- Control Sidebar Toggle Button -->
-                        <li>
-                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                        </li>
-                    </ul>
-                </div>
+                                        <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();" class="btn btn-primary btn-flat" style="border-radius: 3px;">
+                                        Logout
+                                    </a>
 
-            </nav>
-        </header>
-        <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar"><br>
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
-                <!-- Sidebar user panel -->
-                <div class="user-panel">
-                    <div class="pull-left image">
-                        <img style="width:38px; height:38px;" src="/uploads/avatar/defaults.jpg" class="img-circle" alt="User Image" />
-                    </div>
-                    <div class="pull-left info">
-                        <p>{{ Auth::user() && Auth::user()->name }}</p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                    </div>
-                </div>
-                <!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="hidden" name="q" class="form-control" placeholder="Pencarian...">
-                    </div>
-                </form>
-                <!-- /.search form -->
-                <!-- sidebar menu: : style can be found in sidebar.less -->
-                <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header">
-                        <center>MAIN NAVIGATION</center>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
-                    <br>
-                    <li class="active">
-                        <a href="{{url('home')}}"><i class="fa fa-dashboard"></i>Dashboard</a>
-                    </a>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar"><br>
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img style="width:38px; height:38px;" src="/uploads/avatar/defaults.jpg" class="img-circle" alt="User Image" />
+                </div>
+                <div class="pull-left info">
+                    <p>{{ Auth::user() && Auth::user()->name }}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="hidden" name="q" class="form-control" placeholder="Pencarian...">
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">
+                    <center>MAIN NAVIGATION</center>
                 </li>
-                @if (Auth::user() && Auth::user()->akses == 'Admin')
+                <br>
+                @if (Auth::user() && Auth::user()->akses == 'Users')
+                <li class="active">
+                    <a href="{{url('home')}}"><i class="fa fa-dashboard"></i>Users</a>
+                </a>
                 <li><a href="{{url('siswa')}}"><i class="fa fa-user"></i> <span>Siswa</span></a></li>
                 <li><a href="{{url('pelanggan')}}"><i class="fa fa-users"></i> <span>Pelanggan</span></a></li>
                 <li><a href="{{url('pengguna')}}"><i class="fa fa-book"></i> <span>Pengguna</span></a></li>
                 <li><a href="{{url('supplier')}}"><i class="fa fa-users"></i> <span>Supplier</span></a></li>
-                <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-list"></i>
-                            <span>Barang</span>
-                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                <li><a href="{{url('barang')}}"><i class="fa fa-book"></i> <span>Barang</span></a></li>
+            </li>
+            @elseif (Auth::user() && Auth::user()->akses == 'Admin')
+            <li><a href="{{url('siswa')}}"><i class="fa fa-user"></i> <span>Siswa</span></a></li>
+            <li><a href="{{url('pelanggan')}}"><i class="fa fa-users"></i> <span>Pelanggan</span></a></li>
+            <li><a href="{{url('pengguna')}}"><i class="fa fa-book"></i> <span>Pengguna</span></a></li>
+            <li><a href="{{url('supplier')}}"><i class="fa fa-users"></i> <span>Supplier</span></a></li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-list"></i>
+                    <span>Barang</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li class="treeview">
+                        <a href=" {{url('#')}} "><i class="fa fa-desktop"></i> Data Barang 1
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
                         </a>
                         <ul class="treeview-menu" style="display: none;">
-                            <li class="treeview">
-                                <a href=" {{url('#')}} "><i class="fa fa-desktop"></i> Data Barang 1
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu" style="display: none;">
-                                    <li><a href="{{url('barang')}}"><i class="fa fa-book"></i>Semua Barang</a></li>
-                                    <li><a href="{{url('barang/diterima')}}"><i class="fa fa-book"></i> Barang Diterima</a></li>
-                                    <li><a href=" {{url('barang/ditolak')}} "><i class="fa fa-download"></i> Barang Ditolak</a></li>
-                                </ul>
-                            </li>
-                            <li class="treeview">
-                                <a href=" {{url('#')}} "><i class="fa fa-desktop"></i> Data Barang 2
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu" style="display: none;">
-                                    <li><a href="{{url('barang2')}}"><i class="fa fa-book"></i>Semua Barang</a></li>
-                                    <li><a href="{{url('barang2/hilang')}}"><i class="fa fa-book"></i> Barang Hilang</a></li>
-                                    <li><a href=" {{url('barang2/rusak')}} "><i class="fa fa-download"></i> Barang Rusak</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="{{url('barang')}}"><i class="fa fa-book"></i>Semua Barang</a></li>
+                            <li><a href="{{url('barang/diterima')}}"><i class="fa fa-book"></i> Barang Diterima</a></li>
+                            <li><a href=" {{url('barang/ditolak')}} "><i class="fa fa-download"></i> Barang Ditolak</a></li>
                         </ul>
                     </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-credit-card"></i>
-                        <span>Peminjaman</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href=" {{url('/barang/dipinjam/')}} "><i class="fa fa-user"></i>Semua Peminjaman</a></li>
-                        <li><a href=" {{url('/barang/diterima')}} "><i class="fa fa-user"></i> Peminjaman Dikembalikan</a></li>
-                        <li><a href=" {{url('/barang/ditolak')}} "><i class="fa fa-user"></i> Peminjaman belum Dikembalikan</a></li>
-                        <li><a href=" {{url('/barang/keluar')}} "><i class="fa fa-user"></i> Barang Keluar(Mutasi Barang)</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-credit-card"></i>
-                        <span>Mutasi Barang</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href=" {{url('/barang/mutasi/')}} "><i class="fa fa-user"></i>Semua Mutasi Barang</a></li>
-                        <li><a href=" {{url('/barang/mutasi/keluar')}} "><i class="fa fa-user"></i> Mutasi Keluar</a></li>
-                        <li><a href=" {{url('/barang/mutasi/masuk')}} "><i class="fa fa-user"></i> Mutasi Masuk</a></li>
-                    </ul>
-                </li>
-                @endif
-                <li class="header">LABELS</li>
-            </ul>
-        </section>
-        <!-- /.sidebar -->
-    </aside>
+                    <li class="treeview">
+                        <a href=" {{url('#')}} "><i class="fa fa-desktop"></i> Data Barang 2
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="display: none;">
+                            <li><a href="{{url('barang2')}}"><i class="fa fa-book"></i>Semua Barang</a></li>
+                            <li><a href="{{url('barang2/hilang')}}"><i class="fa fa-book"></i> Barang Hilang</a></li>
+                            <li><a href=" {{url('barang2/rusak')}} "><i class="fa fa-download"></i> Barang Rusak</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-credit-card"></i>
+                    <span>Peminjaman</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href=" {{url('/barang/dipinjam/')}} "><i class="fa fa-user"></i>Semua Peminjaman</a></li>
+                    <li><a href=" {{url('/barang/dipinjam/sudah')}} "><i class="fa fa-user"></i> Peminjaman Dikembalikan</a></li>
+                    <li><a href=" {{url('/barang/dipinjam/belum')}} "><i class="fa fa-user"></i> Peminjaman belum Dikembalikan</a></li>
+                </ul>
+            </li>
+            <li><a href="{{url('barang/mutasi')}}"><i class="fa fa-credit-card"></i> <span>Mutasi Barang</span></a></li>
+            @endif
+            <li class="header">LABELS</li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
 
-    <script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
-    <script src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('bower_components/fastclick/lib/fastclick.js')}}"></script>
-    <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
-    <script src="{{asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+<script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('bower_components/fastclick/lib/fastclick.js')}}"></script>
+<script src="{{asset('dist/js/adminlte.min.js')}}"></script>
+<script src="{{asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 
 </body>
 

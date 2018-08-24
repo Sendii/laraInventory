@@ -17,7 +17,7 @@ class BarangController extends Controller
     public function kodeBarang($kode_barang) {
       $kode['kodes'] = \App\Income::where('kode_barang', '=', $kode_barang)->get();
 
-      return view('admin/barang.kode')->with($kode);
+      return view('admin/barang.kode', $kode);
     } 
 
     public function allditolak() {
@@ -28,8 +28,8 @@ class BarangController extends Controller
     }
 
     public function add() {
-      $supplier = \App\Supplier::all();
-    	return view('admin/barang.add')->with(['suppliers' => $supplier]);
+      $supplier['suppliers'] = \App\Supplier::all();
+    	return view('admin/barang.add', $supplier);
     }
 
     public function save(Request $r) {
@@ -71,8 +71,8 @@ class BarangController extends Controller
 
     public function edit($id)
     {
-      $barangs = \App\Income::find($id);
-      return view('admin/barang.edit', ['barang' => $barangs]);  
+      $barangs['barangs'] = \App\Income::find($id);
+      return view('admin/barang.edit', $barangs);  
     }
 
     public function update(Request $request)
@@ -104,7 +104,38 @@ class BarangController extends Controller
       $a['barang'] = \App\Income::find($id);
       $a['siswas'] = \App\Siswa::all();
 
-      return view('admin/barang.pinjam')->with($a);
+      return view('admin/barang.pinjam', $a);
+    }
+
+    public function mutasiMasuk($id) {
+      $a['barang'] = \App\Income::find($id);
+      $a['pelanggan'] = \App\Pelanggan::all();
+
+      return view('admin/barang/mutasi.masuk', $a);
+    }
+
+    public function savemutasiKeluar(Request $r) {
+      $new = new \App\MutasiBarang;
+      $edit = \App\Income::find($r->input('id'));
+
+      $new->nm_supplier = $r->input('namasupplier');
+      $new->id_pelanggan = $r->input('namapelanggan');
+      $new->nama_barang = $r->input('nama_barang');
+      $new->kode_barang = $r->input('kode_barang');
+      $new->qty = $r->input('jumlah');
+      $new->keterangan = "Keluar";
+      $new->save();
+
+      $edit->qty = $r->input('stock') - $r->input('jumlah');
+      $edit->save();
+
+      return redirect('barang/mutasi');
+    }
+
+    public function mutasiPelanggan($id_pelanggan) {
+      $data = \App\MutasiBarang::where('id_pelanggan', $id_pelanggan)->paginate();
+
+      dd($data);   
     }
 
     public function savePeminjaman(Request $r) {
@@ -128,7 +159,7 @@ class BarangController extends Controller
     public function barangTerpinjam() {
       $barang['barangs'] = \App\Peminjaman::paginate(10);
 
-      return view('admin/barang.barangterpinjam')->with($barang);
+      return view('admin/barang.barangterpinjam', $barang);
     }
 
     public function pengembalian($id) {
@@ -136,7 +167,7 @@ class BarangController extends Controller
       $editbarang = \App\Peminjaman::where('id', $id)->value('id_barang');
       $edit['a'] = \App\Income::find($editbarang);
       
-      return view('admin/barang.kembalikan')->with($edit);
+      return view('admin/barang.kembalikan', $edit);
     }
 
     public function savePengembalian(Request $r) {
@@ -190,6 +221,13 @@ class BarangController extends Controller
       }
     } 
 
+    public function mutasiAll() {
+      $a['mutasibarangs2'] = \App\MutasiBarang::paginate(10);
+      $a['mutasibarangs'] = \App\Income::paginate(10);
+
+      return view('admin/barang/mutasi.all', $a);
+    }
+
     public function mutasiKeluar() {
       echo 'mau keluar barang';
     }
@@ -207,10 +245,12 @@ class BarangController extends Controller
       $data['kelas'] = \App\Kelas::where('id', $a)->first();
       $data['datas'] = \App\Peminjaman::where('id_siswa', $b)->get();
 
-      return view('admin/pinjam.kelas')->with($data);
+      return view('admin/pinjam.kelas', $data);
     }
 
-    public function allRh(){
-      
+    public function sudahKembali() {
+      $data['peminjamansudah'] = \App\Peminjaman::where('status', 'Sudah Dikembalikan')->paginate(10);
+      $data['peminjamanbelum'] = \App\Peminjaman::where('status', 'Meminjam')->paginate(10);
+      return view('admin/pinjam.pinjamsudah', $data);
     }
 }

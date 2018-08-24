@@ -26,7 +26,9 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                  @if (Auth::user() && Auth::user()->akses == 'Admin')
                   <button style="margin-bottom: 10px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-addSupplier"><i class="fa fa-plus-square"></i>&nbsp;Tambah Supplier</button>
+                  @endif
                   <div class="table-responsive">
                     <table id="example" class="table table-bordered table-hover" role="grid" aria-describedby="example1_info" data>
                       <thead>
@@ -35,7 +37,9 @@
                           <th style="text-align: center;">Nama Supplier</th>
                           <th style="text-align: center;">Alamat</th>
                           <th style="text-align: center;">Telepon</th>
+                          @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <th style="text-align: center;">Action</th>
+                          @endif
                         </tr>
                       </thead>
                       <tbody>
@@ -45,10 +49,12 @@
                           <td style="text-align: center;">{{$key->nm_supplier}}</td>
                           <td style="text-align: center;">{{$key->alamat}}</td>
                           <td style="text-align: center;">{{$key->telepon}}</td>
+                          @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <td style="text-align: center;">
-                            <a href="{{url('penggunaan/edit/'.$key->id)}}"><button class="btn btn-warning"><i class="fa fa-edit"></i></button></a>
-                            <a href="{{url('penggunaan/delete/'.$key->id)}}" onclick="return confirm('are u sure to delete ?')"><button class="btn btn-danger"><i class="fa fa-trash-o"></i></button></a>
+                            <a href="{{url('supplier/edit/'.$key->id)}}"><button class="btn btn-warning"><i class="fa fa-edit"></i></button></a>
+                            <a href="{{url('supplier/delete/'.$key->id)}}" onclick="return confirm('are u sure to delete ?')"><button class="btn btn-danger"><i class="fa fa-trash-o"></i></button></a>
                           </td>
+                          @endif
                         </tr>
                         @endforeach
                       </tbody>
