@@ -22,7 +22,7 @@
               {{ csrf_field() }}
               <input type="hidden" name="id" value="{{$barang->id}}">
               <input type="hidden" name="kode_barang" value="{{$barang->kode_barang}}">
-              <input type="hidden" name="namasupplier" value="{{$barang->nm_supplier}}">
+              <input type="hidden" name="namasupplier" value="{{$barang->id_supplier}}">
               <div class="form-group">
                 <label class="col-sm-2 control-label">Nama Barang</label>
                 <div class="col-sm-3">
@@ -77,7 +77,7 @@
                     </div>
                     <select name="namapelanggan" class="form-control select2" required>
                     	@foreach($pelanggan as $pelanggans)
-                    	<option value="">Pilih Peminjam</option>
+                    	<option value="">Pilih Penerima</option>
                     	<option value="{{ $pelanggans->id }}">{{ $pelanggans->nama_outlet }}</option>
                     	@endforeach
                     </select>

@@ -10,14 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-	return view('welcome');
-});
 // Route::get('report', 'ReportController@report');
 // Route::get('import-export-view', 'ReportController@importExportView')->name('import.export.view');
 // Route::post('import-file', 'ReportController@importFile')->name('import.file');
 // Route::get('export-file/{type}', 'ReportController@exportFile')->name('export.file');
+
+Route::get('/', function () {
+	return view('welcome');
+});
+Route::get('pagenotfound', ['as' => 'notfound', 'uses' => 'HomeController@pagenotfound']);
 
 Auth::routes();
 
@@ -75,7 +76,7 @@ Route::middleware(['admins'], 'auth')->group(function() {
 			Route::get('/keluar/{id}', 'BarangController@mutasiKeluar');
 			Route::post('/keluar/save', 'BarangController@savemutasiKeluar');
 			Route::get('/masuk/{id}', 'BarangController@mutasiMasuk');
-			Route::get('{id_pelanggan}', 'BarangController@mutasiPelanggan');
+			Route::get('{nama_pelanggan}', 'BarangController@mutasiPelanggan');
 		});
 	});
 

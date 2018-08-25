@@ -11,4 +11,8 @@ class MutasiBarang extends Model
     public function Pelanggan() {
     	return $this->belongsTo('App\Pelanggan', 'id_pelanggan', 'id');
     }
+
+    public function Supplier() {
+    	return $this->belongsTo('App\Supplier', 'id_supplier', 'id');
+    }
 }

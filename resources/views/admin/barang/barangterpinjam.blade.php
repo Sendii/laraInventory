@@ -44,14 +44,13 @@
                       <tbody>
                         @foreach($barangs as $key)
                         <?php
-                          $nama = \App\Siswa::where('id', $key->id_siswa)->value('namalengkap');
                           $kelas = \App\Siswa::where('id', $key->id_siswa)->value('id_kelas');
                           $getkelas = \App\Kelas::where('id', $kelas)->value('kelas');
                         ?>
                         <tr>
                           <td style="text-align: center;">{{$key->id}}</td>
                           <td style="text-align: center;">
-                            <a href="{{url('barang/history/nama', [$nama])}}">{{ $nama }}</a>
+                            <a href="{{url('barang/history/nama', [$key->Siswa->namalengkap])}}">{{ $key->Siswa->namalengkap }}</a>
                             <b><i><br>=> {{ $getkelas }}</i></b>
                           </td>
                           <td style="text-align: center;">{{$key->nama_barang}}</td>
@@ -61,10 +60,10 @@
                           <td style="text-align: center;">{{$key->created_at}}</td>
                           <td style="text-align: center;">
                             @if(is_null($key->waktukembali))
-                            <span><b><i> - </i></b></span>
-                          @else
-                          <span>{{$key->waktukembali}}</span>
-                        @endif
+                              <span><b><i> - </i></b></span>
+                            @else
+                              <span>{{$key->waktukembali}}</span>
+                            @endif
                       </td>
                           <td style="text-align: center;">
                             @if($key->status == "Meminjam")

@@ -58,7 +58,7 @@
                                                     </div>
                                                     <select name="supplier" class="form-control select2">
                                                         @foreach($suppliers as $saa)
-                                                        <option value="{{$saa->nm_supplier}}"> {{$saa->nm_supplier}}
+                                                        <option value="{{$saa->id}}"> {{$saa->nm_supplier}}
                                                         </option>
                                                         @endforeach
                                                     </select>

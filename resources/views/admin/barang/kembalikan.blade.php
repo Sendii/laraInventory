@@ -22,7 +22,7 @@
               {{ csrf_field() }}
               <input type="hidden" name="id" value="{{$barang->id}}">
               <input type="hidden" name="id_barang" value="{{$barang->id_barang}}">
-              <input type="hidden" name="nm_supplier" value="{{$a->nm_supplier}}">
+              <input type="hidden" name="nm_supplier" value="{{$a->id_supplier}}">
               <input type="hidden" name="banyak_brg" value="{{$a->banyak_brg}}">
               <input type="hidden" name="kode_barang" value="{{$a->kode_barang}}">
               <div class="form-group">

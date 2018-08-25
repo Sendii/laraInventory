@@ -25,7 +25,7 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
             <div class="box-header">
               <center>
                 <center>
-                  <h2 style="font-size: 25px" class="box-title">Data Barang Bermasalahs</h2></center>
+                  <h2 style="font-size: 25px" class="box-title">Data Barang Bermasalah</h2></center>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -44,21 +44,14 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                       </thead>
                       <tbody>
                         @foreach($rusakh as $key)
-                        <?php 
-                        $namapeminjam = \App\Siswa::where('id', $key->id_siswa)->value('namalengkap');
-                        $namabarang = \App\Income::where('id', $key->id_barang)->value('nama_barang');
-                        $kodebarang = \App\Income::where('id', $key->id_barang)->value('kode_barang');
-                        $waktuminjam = \App\Peminjaman::where('id', $key->id_peminjaman)->value('created_at');
-                        $waktubalikin = \App\Peminjaman::where('id', $key->id_peminjaman)->value('waktukembali');
-                         ?>
                         <tr>
                           <td style="text-align: center;">{{ $key->id }}</td>
                           <td style="text-align: center;">
-                            <a href="{{url('barang/history/nama', [$namapeminjam])}}">{{ $namapeminjam }}</a></td>
-                            <td style="text-align: center;"><a href="{{url('barang2', [$kodebarang])}}">{{ $kodebarang }}</a></td>
-                            <td style="text-align: center;">{{ $namabarang }}</td>
+                            <a href="{{url('barang/history/nama', [$key->Siswa->namalengkap])}}">{{ $key->Siswa->namalengkap }}</a></td>
+                            <td style="text-align: center;"><a href="{{url('barang2', [$key->Barang->kode_barang])}}">{{ $key->Barang->kode_barang }}</a></td>
+                            <td style="text-align: center;">{{ $key->Barang->nama_barang}}</td>
                             <td style="text-align: center;">{{$key->jumlah_brg}}</td>
-                            <td style="text-align: center;">{{$waktuminjam."/".$waktubalikin}}</td>
+                            <td style="text-align: center;">{{$key->Peminjam->created_at."/".$key->Peminjam->waktukembali}}</td>
                             <td style="text-align: center;">
                               @if($key->keterangan == "Hilang")
                               <span class="label label-danger"><i class="fa fa-close"></i>&nbsp;{{ $key->keterangan }}</span>

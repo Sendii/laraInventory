@@ -115,4 +115,10 @@ class HomeController extends Controller
 
       return redirect('siswa');
     }
+
+    // ----------------URL REDIRECT TO ERROR404------------
+     public function pagenotfound()
+     {
+         return view('503');
+    }
 }

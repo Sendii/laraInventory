@@ -24,10 +24,12 @@ class SupplierController extends Controller
     }
 
     public function barangSupplier($nm_supplier) {
-        $barang = \App\Income::where('nm_supplier', $nm_supplier)->get();
+        $a = \App\Supplier::where('nm_supplier', $nm_supplier)->value('id');
+        $barangs = \App\Supplier::where('nm_supplier', $nm_supplier)->first();
+        $barang = \App\Income::where('id_supplier', $a)->get();
         $supplier = \App\Supplier::all();
 
-        return view('admin/supplier.barang_supplier')->with(['barangs' => $barang, 'suppliers' => $supplier]);
+        return view('admin/supplier.barang_supplier')->with(['barangs' => $barang, 'barang' => $barangs, 'suppliers' => $supplier]);
     }
 
     public function editSupplier($id) {

@@ -15,7 +15,8 @@ class CreateOutgoingsTable extends Migration
     {
         Schema::create('mutasibarang', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('nm_supplier')->unsigned();
+            $table->integer('id_supplier')->unsigned();
+            $table->foreign('id_supplier')->references('id')->on('suppliers');
             $table->integer('id_pelanggan')->unsigned();
             $table->foreign('id_pelanggan')->references('id')->on('pelanggans')->onDelete('cascade');
             $table->text('kode_barang');

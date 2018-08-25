@@ -45,10 +45,10 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                         @foreach($mutasibarangs2 as $key)
                         <tr>
                           <td style="text-align: center;">{{$key->id}}</td>
-                          <td style="text-align: center;"><a href="{{url('barang/mutasi', [$key->id_pelanggan])}}">{{$key->Pelanggan->nama_outlet}}</a></td>
+                          <td style="text-align: center;"><a href="{{url('barang/mutasi', [$key->Pelanggan->nama_outlet])}}">{{$key->Pelanggan->nama_outlet}}</a></td>
                           @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <td style="text-align: center;">
-                            <a href="{{url('supplier', [$key->nm_supplier])}}">{{ $key->nm_supplier }}</a></td>
+                            <a href="{{url('supplier', [$key->Supplier->nm_supplier])}}">{{ $key->Supplier->nm_supplier }}</a></td>
                             @endif
                             <td style="text-align: center;">{{$key->kode_barang}}</td>
                             <td style="text-align: center;">{{$key->nama_barang}}</td>

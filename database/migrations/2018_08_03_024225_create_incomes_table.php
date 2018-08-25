@@ -15,7 +15,8 @@ class CreateIncomesTable extends Migration
     {
         Schema::create('barangs', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('nm_supplier');
+            $table->integer('id_supplier')->unsigned();
+            $table->foreign('id_supplier')->references('id')->on('suppliers');
             $table->string('status')->enum(['Bagus', 'Tidak Bagus'])->default('Bagus');
             $table->integer('banyak_brg')->nullable();
             $table->text('kode_barang');

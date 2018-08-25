@@ -25,7 +25,7 @@ $supplier = basename($_SERVER['REQUEST_URI']);
             <div class="box-header">
               <center>
                 <center>
-                  <h2 style="font-size: 25px" class="box-title">Data Barang Supplier "<b>{{$supplier}}</b>"</h2></center>
+                  <h2 style="font-size: 25px" class="box-title">Data Barang Supplier "<b>{{$barang->nm_supplier}}</b>"</h2></center>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

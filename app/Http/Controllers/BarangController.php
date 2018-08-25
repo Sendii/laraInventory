@@ -39,7 +39,7 @@ class BarangController extends Controller
          $new2 = new \App\Income;
           $new2->banyak_brg = $r->input('row');
           $new2->kode_barang = str_random(8);
-         $new2->nm_supplier = $r->input('supplier');
+         $new2->id_supplier = $r->input('supplier');
          $new2->nama_barang = $r['nama'][$i];
          $new2->qty = $r['qty'][$i];
          $new2->keterangan = "Diterima";  
@@ -57,7 +57,7 @@ class BarangController extends Controller
          $new2 = new \App\Income;
           $new2->banyak_brg = $r->input('row');
           $new2->kode_barang = str_random(8);
-         $new2->nm_supplier = $r->input('supplier');
+         $new2->id_supplier = $r->input('supplier');
          $new2->nama_barang = $r['nama'][$i];
          $new2->qty = $r['qty'][$i];
          $new2->keterangan = "Ditolak";
@@ -78,7 +78,7 @@ class BarangController extends Controller
     public function update(Request $request)
     {
       $b = \App\Income::find($request->input('id'));
-      $b->nm_supplier = $request->nama_supplier;
+      $b->id_supplier = $request->nama_supplier;
       $b->qty = $request->stock;
       $b->nama_barang = $request->namabarang;    
       $b->save();
@@ -118,7 +118,7 @@ class BarangController extends Controller
       $new = new \App\MutasiBarang;
       $edit = \App\Income::find($r->input('id'));
 
-      $new->nm_supplier = $r->input('namasupplier');
+      $new->id_supplier = $r->input('namasupplier');
       $new->id_pelanggan = $r->input('namapelanggan');
       $new->nama_barang = $r->input('nama_barang');
       $new->kode_barang = $r->input('kode_barang');
@@ -132,8 +132,9 @@ class BarangController extends Controller
       return redirect('barang/mutasi');
     }
 
-    public function mutasiPelanggan($id_pelanggan) {
-      $data = \App\MutasiBarang::where('id_pelanggan', $id_pelanggan)->paginate();
+    public function mutasiPelanggan($nama_pelanggan) {
+      $a = \App\Pelanggan::where('nama_outlet', $nama_pelanggan)->value('id');
+      $data = \App\MutasiBarang::where('id_pelanggan', $a)->paginate();
 
       dd($data);   
     }
