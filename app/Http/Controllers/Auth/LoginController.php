@@ -30,7 +30,7 @@ class LoginController extends Controller
         if ( Auth::user()->akses=='Admin') {// do your margic here
             return redirect('dashboard');
         }elseif ( Auth::user()->akses=='Users') {// do your margic here
-            return redirect('user');
+            return redirect('dashboard`');
         }else{
             echo "kamu siapa (?) ";
         }

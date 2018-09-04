@@ -25,7 +25,7 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
             <div class="box-header">
               <center>
                 <center>
-                  <h2 style="font-size: 25px" class="box-title">Data Barang</h2></center>
+                  <h2 style="font-size: 25px" class="box-title">Data Barang Hilang</h2></center>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -34,31 +34,37 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                       <thead>
                         <tr>
                           <th style="text-align: center;">No. </th>
-                          <th style="text-align: center;">Penerima. </th>
-                          <th style="text-align: center;">Supplier </th>
+                          <th style="text-align: center;">Nama Peminjam</th>
                           <th style="text-align: center;">Kode Barang</th>
                           <th style="text-align: center;">Nama Barang</th>
                           <th style="text-align: center;">Jumlah Barang</th>
+                          <th style="text-align: center;">Tgl Peminjaman/Pengembalian</th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($mutasibarangs2 as $key)
+                        @foreach($rusak as $key)
+                        <?php 
+                        $namapeminjam = \App\Siswa::where('id', $key->id_siswa)->value('namalengkap');
+                        $namabarang = \App\Income::where('id', $key->id_barang)->value('nama_barang');
+                        $kodebarang = \App\Income::where('id', $key->id_barang)->value('kode_barang');
+                        $waktuminjam = \App\Peminjaman::where('id', $key->id_peminjaman)->value('created_at');
+                        $waktubalikin = \App\Peminjaman::where('id', $key->id_peminjaman)->value('waktukembali');
+                         ?>
                         <tr>
-                          <td style="text-align: center;">{{$key->id}}</td>
-                          <td style="text-align: center;"><a href="{{url('barang/mutasi', [$key->Pelanggan->nama_outlet])}}">{{$key->Pelanggan->nama_outlet}}</a></td>
-                          @if (Auth::user() && Auth::user()->akses == 'Admin')
+                          <td style="text-align: center;">{{ $key->id }}</td>
                           <td style="text-align: center;">
-                            <a href="{{url('supplier', [$key->Supplier->nm_supplier])}}">{{ $key->Supplier->nm_supplier }}</a></td>
-                            @endif
-                            <td style="text-align: center;"><a href="{{url('barang/diterima', [$key->kode_barang])}}">{{$key->kode_barang}}</a></td>
-                            <td style="text-align: center;">{{$key->nama_barang}}</td>
-                            <td style="text-align: center;">{{$key->qty}}</td>
+                            <a href="{{url('barang/history/nama', [$namapeminjam])}}">{{ $namapeminjam }}</a></td>
+                            <td style="text-align: center;"><a href="{{url('barang2', [$kodebarang])}}">{{ $kodebarang }}</a></td>
+                            <td style="text-align: center;">{{ $namabarang }}</td>
+                            <td style="text-align: center;">{{$key->jumlah_brg}}</td>
+                            <td style="text-align: center;">{{$waktuminjam."/".$waktubalikin}}</td>
                           </tr>
                           @endforeach
                         </tbody>
                       </table>
                     </div>
                   </div>
+                  <div class="modal fade in" id="modal-addbarang" style="padding-right: 15px;">
                       <script type="text/javascript" src="{{asset('js/datatable/jquery.dataTables.min.js')}}"></script>
                       <script type="text/javascript" src="{{asset('js/datatable/dataTables.bootstrap.min.js')}}"></script>
                       <script src="{{asset('js/sweetalert.min.js')}}"></script>

@@ -23,4 +23,10 @@ class BarangRHController extends Controller
 
         return view('admin/barang/rusakh.rusak', $a);
     }
+
+    public function barangHilang() {
+        $a['rusak'] = \App\BarangRusakH::where('keterangan', 'Hilang')->paginate(10);
+
+        return view('admin/barang/rusakh.hilang', $a);
+    }
 }

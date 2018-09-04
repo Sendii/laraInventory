@@ -229,8 +229,11 @@ class BarangController extends Controller
       return view('admin/barang/mutasi.all', $a);
     }
 
-    public function mutasiKeluar() {
-      echo 'mau keluar barang';
+    public function mutasiKeluar($id) {
+      $a['barang'] = \App\Income::find($id);
+      $a['pelanggan'] = \App\Pelanggan::all();
+
+      return view('admin/barang/mutasi.masuk', $a);
     }
 
     public function terpinjamNama($nama) {

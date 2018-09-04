@@ -72,7 +72,7 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                           <tr>
                             <td style="text-align: center;">{{$key->id}}</td>
                             <td style="text-align: center;">
-                              <a href="{{url('supplier', [$key->nm_supplier])}}">{{ $key->nm_supplier }}</a></td>
+                              <a href="{{url('supplier', [$key->Supplier->nm_supplier])}}">{{ $key->Supplier->nm_supplier }}</a></td>
                               <td style="text-align: center;">{{$key->kode_barang}}</td>
                               <td style="text-align: center;">{{$key->nama_barang}}</td>
                               <td style="text-align: center;">{{$key->qty}}</td>

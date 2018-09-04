@@ -17,6 +17,8 @@ class CreatePeminjamansTable extends Migration
             $table->increments('id');
             $table->integer('id_siswa')->unsigned();
             $table->foreign('id_siswa')->references('id')->on('siswas');
+            $table->integer('id_kelas')->unsigned();
+            $table->foreign('id_kelas')->references('id')->on('kelas');
             $table->integer('id_barang')->unsigned();
             $table->foreign('id_barang')->references('id')->on('barangs');
             $table->text('nama_barang');

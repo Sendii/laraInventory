@@ -66,8 +66,8 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                               @endif
                             </td>
                             <td style="text-align: center;">
-                              <a class="btn btn-warning" href="{{url('barang/mutasi/masuk/'.$key->id)}}"><i class="fa fa-edit"></i> Mut. Masuk</a>
-                              <a href="{{url('barang/mutasi/keluar/'.$key->id)}}"><button class="btn btn-info"><i class="fa fa-edit"></i>Mut. Keluar</button></a>
+                              <a href="{{url('barang/mutasi/keluar/'.$key->id)}}"><button class="btn btn-info"><i class="fa fa-edit"></i>Mut. Keluars</button></a>
+                              <!-- <a class="btn btn-warning" href="{{url('barang/mutasi/masuk/'.$key->id)}}"><i class="fa fa-edit"></i> Mut. Masuk</a> -->
                               <br>
                             </td>
                           </tr>
