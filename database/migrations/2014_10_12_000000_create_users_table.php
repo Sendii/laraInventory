@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             'password' => bcrypt("888888"),
             'akses' => "Admin"
         ]);
+        
         DB::table('users')->insert([
             'name' => "Sophiaa",
             'email' => "users@gmail.com",

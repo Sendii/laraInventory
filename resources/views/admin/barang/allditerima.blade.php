@@ -34,6 +34,7 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                 <!-- /.box-header -->
                 <div class="box-body">
                   <button style="margin-bottom: 10px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-barang"><i class="fa fa-plus-square"></i>&nbsp;Tambah Barang</button>
+                  <a href="{{url('pdfview')}}" class="btn btn-primary">Download</a>
                   <div class="table-responsive">
                     <table id="example" class="table table-bordered table-hover" role="grid" aria-describedby="example1_info" data>
                       <thead>

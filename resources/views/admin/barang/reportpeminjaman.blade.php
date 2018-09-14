@@ -2,16 +2,13 @@
 <html>
 
 <head>
-  @extends('layouts.adminlte')
 </head>
 <style type="text/css">
 .center {
   text-align: center;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="{{asset('css/sweetalert.css')}}">
 <body class="hold-transition skin-blue sidebar-mini">
-  @include('layouts.sidebar')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <div class="container-fluid spark-screen">
@@ -26,7 +23,6 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                  <a href="{{url('pdfviewPeminjaman')}}" class="btn btn-primary">Download</a>
                   <div class="table-responsive">
                     <table id="example" class="table table-bordered table-hover" role="grid" aria-describedby="example1_info" data>
                       <thead>
@@ -79,14 +75,5 @@
                     </table>
                   </div>
                 </div>
-
-                  <script type="text/javascript" src="{{asset('js/datatable/jquery.dataTables.min.js')}}"></script>
-                  <script type="text/javascript" src="{{asset('js/datatable/dataTables.bootstrap.min.js')}}"></script>
-                  <script src="{{asset('js/sweetalert.min.js')}}"></script>
-                  <script type="text/javascript">
-                    $(document).ready(function() {
-                      $('#example').DataTable();
-                    });
-                  </script>
                 </body>
                 </html>

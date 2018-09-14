@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use DB;
+use PDF;
 use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Http\Request;
 
@@ -13,9 +15,21 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+      $this->middleware('auth');
     }
 
+    public function pdfview()
+    {
+      $data['barangs'] = \App\Income::all();
+      $pdf = PDF::loadView('admin/barang.report', $data);
+      return $pdf->download('invoice.pdf');
+    }
+
+    public function pdfviewPeminjaman() {
+      $barang['barangs'] = \App\Peminjaman::paginate(10);
+      $pdf = PDF::loadView('admin/barang.reportpeminjaman', $barang);
+      return $pdf->download('allPeminjaman.pdf');
+    }
     /**
      * Show the application dashboard.
      *
@@ -24,24 +38,24 @@ class HomeController extends Controller
 
     public function chart()
     {
-        $chart = Charts::create('line', 'highcharts')
-            ->title("Monthly new Register Users")
-            ->elementLabel("Total Users")
-            ->dimensions(1000, 500)
-            ->responsive(true);
-        return view('chart', ['charts' => $chart]);
+      $chart = Charts::create('line', 'highcharts')
+      ->title("Monthly new Register Users")
+      ->elementLabel("Total Users")
+      ->dimensions(1000, 500)
+      ->responsive(true);
+      return view('chart', ['charts' => $chart]);
     }
     public function index()
     {
       $data['barangs'] = \App\Income::take(8)->orderBy('id', 'DESC')->get();
       $data['users'] = \App\User::take(5)->orderBy('id', 'DESC')->get();
-        return view('home')->with($data);
+      return view('home')->with($data);
     }
 
     public function alluser() {
-        $user['users'] = \App\User::paginate(10);
+      $user['users'] = \App\User::paginate(10);
 
-        return view('admin/user.all')->with($user);
+      return view('admin/user.all')->with($user);
     }
 
     // public function save(Request $r) {
@@ -117,8 +131,8 @@ class HomeController extends Controller
     }
 
     // ----------------URL REDIRECT TO ERROR404------------
-     public function pagenotfound()
-     {
-         return view('503');
-    }
-}
+    public function pagenotfound()
+    {
+     return view('503');
+   }
+ }

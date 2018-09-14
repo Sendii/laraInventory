@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
+
+  public function allReport() {
+    $data['barangs'] = \App\Peminjaman::where('keterangan', 'Rusak')->count();
+
+    return view('admin/barang.reportall', $data);
+  }
     public function allditerima() {
     	$barang = \App\Income::where('keterangan', 'Diterima')->paginate(10);
       $barangs = \App\Income::where('keterangan', 'Ditolak')->paginate(10);

@@ -2,7 +2,6 @@
 <html>
 
 <head>
-  @extends('layouts.adminlte')
 </head>
 <style type="text/css">
 .center {
@@ -12,9 +11,7 @@
 <?php
 $_requestUrl = basename($_SERVER['REQUEST_URI']);
 ?>
-<link rel="stylesheet" type="text/css" href="{{asset('css/sweetalert.css')}}">
 <body class="hold-transition skin-blue sidebar-mini">
-  @include('layouts.sidebar')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <div class="container-fluid spark-screen">
@@ -29,10 +26,6 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                  @if (Auth::user() && Auth::user()->akses == 'Admin')
-                  <button style="margin-bottom: 10px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-addbarang"><i class="fa fa-plus-square"></i>&nbsp;Tambah Barang</button><br>
-                  <a href="{{url('barang/report/all')}}" class="btn btn-primary">Report Barang</a>
-                  @endif
                   <div class="table-responsive">
                     <table id="example" class="table table-bordered table-hover" role="grid" aria-describedby="example1_info" data>
                       <thead>
@@ -43,7 +36,6 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                           <th style="text-align: center;">Nama Barang</th>
                           <th style="text-align: center;">Stock Barang</th>
                           <th style="text-align: center;">Keterangan</th>
-                          <th style="text-align: center;">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -66,11 +58,6 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                               <span class="label label-warning"><i class="fa fa-warning"></i>&nbsp;{{ $key->status }}</span>
                               @endif
                             </td>
-                            <td style="text-align: center;">
-                              <a href="{{url('barang/mutasi/keluar/'.$key->id)}}"><button class="btn btn-info"><i class="fa fa-edit"></i>Mut. Keluars</button></a>
-                              <!-- <a class="btn btn-warning" href="{{url('barang/mutasi/masuk/'.$key->id)}}"><i class="fa fa-edit"></i> Mut. Masuk</a> -->
-                              <br>
-                            </td>
                           </tr>
                           @endforeach
                         </tbody>
@@ -78,31 +65,6 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                     </div>
                   </div>
                   <div class="modal fade in" id="modal-addbarang" style="padding-right: 15px;">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span></button>
-                            <center><h4 class="modal-title">Tambah Barang</h4></center>
-                          </div>
-                          <div class="modal-body">
-                            <div class="form-group">
-                              <div class="col-sm-3">
-                                <a class="btn btn-primary" style="margin-left: 280px;" href="{{url('barang/add')}}">Barang diTerima</a>
-                              </div>
-                              <div class="col-sm-3">
-                                <a class="btn btn-primary" href="{{url('barang/addtolak')}}">Barang diTolak</a>
-                              </div>
-                              <br>
-                              <br>
-                              <button style="margin-left: 240px;" type="button" class="btn btn-default pull-left" data-dismiss="modal">Kembali</button>
-                              <br>
-                              <br>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
                       <script type="text/javascript" src="{{asset('js/datatable/jquery.dataTables.min.js')}}"></script>
                       <script type="text/javascript" src="{{asset('js/datatable/dataTables.bootstrap.min.js')}}"></script>
                       <script src="{{asset('js/sweetalert.min.js')}}"></script>
