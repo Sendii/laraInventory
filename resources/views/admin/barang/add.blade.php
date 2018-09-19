@@ -80,59 +80,106 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <script>
-                                        $(document).ready(function() {
-                                            $('input[name="row"]').on('input', function() {
-                                                var row = $('input[name="row"]').val();
-                                                var tag = '';
-                                                for (i = 1; i <= row; i++) {
-                                                    tag += '<tr><td><input type="text" name="nama[]" required class="form-control" placeholder="Nama Barang" required></td><td><input type="number" required name="qty[]" placeholder="Jumlah Barang" class="form-control qty qty' + i + '" required></td></tr>';
-                                                }
-                                                $('tbody').html(tag);
-                                                subtotal();
-                                            });
-                                        });
-                                    </script>
-                                    <div class="form-group pull-left">
-                                        @if($_requestUrl == "addtolak")
-                                        <label class="col-sm-1 control-label">Ket. Ditolak</label>
-                                        <div class="col-sm-3">
-                                            <div class="input-group text">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-apple"></i>
-                                                </div>
-                                                <input type="text" name="keterangan2" class="form-control" placeholder="Keterangan" required autofocus>
-                                            </div>
+                                    <div class="form-group">
+                                        <label>Date and time range:</label>
+
+                                        <div class="input-group">
+                                          <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
                                         </div>
-                                        @endif
+                                        <input type="text" class="form-control pull-right" id="reservationtime" name="datefromto">
                                     </div>
-                                        <div class="box-footer">
-                                            <button type="submit" name="simpan" class="btn btn-primary pull-right"><i class="fa fa-plus-square">&nbsp;</i>Tambahkan</button>
-                                        </div>
+                                    <!-- /.input group -->
                                 </div>
-                            </form>
-                            <!-- Control Sidebar -->
-                        </div>
-                        <script type="text/javascript" src="{{asset('js/forms.min.js')}}"></script>
-                        <script type="text/javascript" src="{{asset('js/select2.full.min.js')}}"></script>
-                        <script type="text/javascript" src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
-                        <script type="text/javascript">
-                            var nowDate = new Date();
-                            var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
+                                <div class="form-group">
+                                    <label>Date range button:</label>
 
-                            $('.select2').select2();
-                            $('#datepicker1').datepicker({
-                                autoclose: true
+                                    <div class="input-group">
+                                      <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                                        <span>
+                                          <i class="fa fa-calendar"></i> Date range picker
+                                      </span>
+                                      <i class="fa fa-caret-down"></i>
+                                  </button>
+                              </div>
+                          </div>
+                          <?php
+                          $str = "Hello world. It's a beautiful day.";
+                          print_r (explode(" ",$str));
+                          ?>
+                          <script>
+                            $(document).ready(function() {
+                                $('input[name="row"]').on('input', function() {
+                                    var row = $('input[name="row"]').val();
+                                    var tag = '';
+                                    for (i = 1; i <= row; i++) {
+                                        tag += '<tr><td><input type="text" name="nama[]" required class="form-control" placeholder="Nama Barang" required></td><td><input type="number" required name="qty[]" placeholder="Jumlah Barang" class="form-control qty qty' + i + '" required></td></tr>';
+                                    }
+                                    $('tbody').html(tag);
+                                    subtotal();
+                                });
                             });
-                            $('#datepicker2').datepicker({
-                                autoclose: true
-                            });
-
-                            $('#datepicker3').datepicker({
-                                startDate: today,
-                                useCurrent: false,
-                                autoclose: true
+                            $(function() {
+                                $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+                                $('#daterange-btn').daterangepicker(
+                                {
+                                    ranges   : {
+                                      'Today'       : [moment(), moment()],
+                                      'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                                      'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+                                      'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                                      'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+                                      'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                                  },
+                                  startDate: moment().subtract(29, 'days'),
+                                  endDate  : moment()
+                              },
+                              function (start, end) {
+                                $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                            }
+                            )
                             });
                         </script>
-                    </body>
-                    </html>
+                        <div class="form-group pull-left">
+                            @if($_requestUrl == "addtolak")
+                            <label class="col-sm-1 control-label">Ket. Ditolak</label>
+                            <div class="col-sm-3">
+                                <div class="input-group text">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-apple"></i>
+                                    </div>
+                                    <input type="text" name="keterangan2" class="form-control" placeholder="Keterangan" required autofocus>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" name="simpan" class="btn btn-primary pull-right"><i class="fa fa-plus-square">&nbsp;</i>Tambahkan</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- Control Sidebar -->
+            </div>
+            <script type="text/javascript" src="{{asset('js/forms.min.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/select2.full.min.js')}}"></script>
+            <script type="text/javascript" src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
+            <script type="text/javascript">
+                var nowDate = new Date();
+                var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
+
+                $('.select2').select2();
+                $('#datepicker1').datepicker({
+                    autoclose: true
+                });
+                $('#datepicker2').datepicker({
+                    autoclose: true
+                });
+
+                $('#datepicker3').datepicker({
+                    startDate: today,
+                    useCurrent: false,
+                    autoclose: true
+                });
+            </script>
+        </body>
+        </html>

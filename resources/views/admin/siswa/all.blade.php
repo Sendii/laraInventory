@@ -28,6 +28,7 @@
                 <div class="box-body">
                   @if (Auth::user() && Auth::user()->akses == 'Admin')
                   <button style="margin-bottom: 10px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-addSiswa"><i class="fa fa-plus-square"></i>&nbsp;Tambah Siswa</button>
+                  <button style="margin-bottom: 10px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-excel"><i class="fa fa-plus-square"></i>&nbsp;Excel</button>
                   @endif
                   <div class="table-responsive">
                     <table id="example" class="table table-bordered table-hover" role="grid" aria-describedby="example1_info" data>
@@ -80,11 +81,11 @@
                             <div class="form-group">
                               <label>Kelas</label>
                               <select name="kelas" class="form-control select2">
-                              <option value="">Pilih Kelas</option>
-                              @foreach($kelas as $kelass)
+                                <option value="">Pilih Kelas</option>
+                                @foreach($kelas as $kelass)
                                 <option value="{{ $kelass->id }}"> {{ $kelass->kelas }}
                                 </option>
-                              @endforeach
+                                @endforeach
                               </select>
                             </div>
                             <div class="form-group">
@@ -105,14 +106,47 @@
                       </div>
                     </div>
                   </div>
+                </div>
+                <!-- FORM EXCEL -->
+                <div class="modal fade in" id="modal-excel" style="padding-right: 15px;">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span></button>
+                          <center><h4 class="modal-title">Import - Export</h4></center>
+                        </div>
+                        <div class="modal-body">
+                          <form method="POST" action="{{url('siswa/save')}}">
+                            <div class="container">
+                              <a href="{{ URL::to('downloadExcel/xls') }}">Download Excel xls</a>
+                              <a href="{{ URL::to('downloadExcel/xlsx') }}">Download Excel xlsx</a>
+                              <a href="{{ URL::to('downloadExcel/csv') }}">Download CSV</a>
+                              <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;" action="{{ URL::to('importExcel') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="import_file" /><br>
+                                <button class="btn btn-primary">Import File</button>
+                              </form>
+                            </div>
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Kembali</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- END -->
 
-                  <script type="text/javascript" src="{{asset('js/datatable/jquery.dataTables.min.js')}}"></script>
-                  <script type="text/javascript" src="{{asset('js/datatable/dataTables.bootstrap.min.js')}}"></script>
-                  <script src="{{asset('js/sweetalert.min.js')}}"></script>
-                  <script type="text/javascript">
-                    $(document).ready(function() {
-                      $('#example').DataTable();
-                    });
-                  </script>
-                </body>
-                </html>
+                <script type="text/javascript" src="{{asset('js/datatable/jquery.dataTables.min.js')}}"></script>
+                <script type="text/javascript" src="{{asset('js/datatable/dataTables.bootstrap.min.js')}}"></script>
+                <script src="{{asset('js/sweetalert.min.js')}}"></script>
+                <script type="text/javascript">
+                  $(document).ready(function() {
+                    $('#example').DataTable();
+                  });
+                </script>
+              </body>
+              </html>

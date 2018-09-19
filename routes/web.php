@@ -10,10 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('report', 'ReportController@report');
-// Route::get('import-export-view', 'ReportController@importExportView')->name('import.export.view');
-// Route::post('import-file', 'ReportController@importFile')->name('import.file');
-// Route::get('export-file/{type}', 'ReportController@exportFile')->name('export.file');
+Route::get('/date', function() {
+	$a = DB::table('peminjamans')->whereBetween('created_at', array('2018-09-21', '2018-09-25'))->get();
+	dd($a);
+});
+Route::get('importExport', 'HomeController@importExport');
+Route::get('downloadExcel/{type}', 'HomeController@downloadExcel');
+Route::post('importExcel', 'HomeController@importExcel');
 
 Route::get('/', function () {
 	return view('welcome');

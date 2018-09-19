@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class BarangController extends Controller
 {
@@ -40,6 +41,14 @@ class BarangController extends Controller
 
     public function save(Request $r) {
       // dd($r->all());
+        $input = $r->input('datefromto');
+        $getDate = explode(" ", $input);
+        $date1 = $getDate[0];
+        $date2 = $getDate[2];
+        $firstDate = strtolower(str_replace('/', '-', substr($date1, 0, 100)));
+        $secondDate = strtolower(str_replace('/', '-', substr($date2, 0, 100)));
+
+        $a = DB::table('peminjamans')->whereBetween('created_at', ["2018-09-20", "2018-09-25"])->get();
     	for ($i=0; $i < $r['row']; $i++)
         {
          $new2 = new \App\Income;

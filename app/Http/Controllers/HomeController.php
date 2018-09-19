@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use DB;
 use PDF;
+use Input;
+use Excel;
 use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Http\Request;
 
@@ -18,33 +20,39 @@ class HomeController extends Controller
       $this->middleware('auth');
     }
 
-    public function pdfview()
+    public function importExport()
     {
-      $data['barangs'] = \App\Income::all();
-      $pdf = PDF::loadView('admin/barang.report', $data);
-      return $pdf->download('invoice.pdf');
+        return view('importExport');
+    }
+    public function downloadExcel($type)
+    {
+        $data = \App\Siswa::get()->toArray();
+        return Excel::create('itsolutionstuff_example', function($excel) use ($data) {
+            $excel->sheet('mySheet', function($sheet) use ($data)
+            {
+                $sheet->fromArray($data);
+            });
+        })->download($type);
+    }
+    public function importExcel()
+    {
+        if(Input::hasFile('import_file')){
+            $path = Input::file('import_file')->getRealPath();
+            $data = Excel::load($path, function($reader) {
+            })->get();
+            if(!empty($data) && $data->count()){
+                foreach ($data as $key => $value) {
+                    $insert[] = ['nis' => $value->nis, 'nohp' => $value->nohp, 'nik' => $value->nik, 'nisn' => $value->nisn, 'nama' => $value->nama, 'id_kelas' => $value->id_kelas, 'jenkel' => $value->jenkel, 'tempat' => $value->tempat, 'tanggallahir' => $value->tanggallahir, 'agama' => $value->agama, 'namaortu' => $value->namaortu, 'namaayah' => $value->namaayah, 'namaibu' => $value->namaibu, 'alamat' => $value->alamat, 'nomorijazah' => $value->nomorijazah, 'tahun' => $value->tahun];
+                }
+                if(!empty($insert)){
+                    DB::table('siswas')->insert($insert);
+                    dd('Insert Record successfully.');
+                }
+            }
+        }
+        return back();
     }
 
-    public function pdfviewPeminjaman() {
-      $barang['barangs'] = \App\Peminjaman::paginate(10);
-      $pdf = PDF::loadView('admin/barang.reportpeminjaman', $barang);
-      return $pdf->download('allPeminjaman.pdf');
-    }
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function chart()
-    {
-      $chart = Charts::create('line', 'highcharts')
-      ->title("Monthly new Register Users")
-      ->elementLabel("Total Users")
-      ->dimensions(1000, 500)
-      ->responsive(true);
-      return view('chart', ['charts' => $chart]);
-    }
     public function index()
     {
       $data['barangs'] = \App\Income::take(8)->orderBy('id', 'DESC')->get();

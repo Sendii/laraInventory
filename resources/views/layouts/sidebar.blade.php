@@ -7,6 +7,7 @@
     <link rel="stylesheet" href=" {{asset('bower_components/bootstrap/dist/css/bootstrap.min.css')}} ">
     <link rel="stylesheet" href=" {{asset('bower_components/font-awesome/css/font-awesome.min.css')}} ">
     <link rel="stylesheet" href=" {{asset('bower_components/Ionicons/css/ionicons.min.css')}} ">
+    <link rel="stylesheet" href="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
     <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
     <link rel="stylesheet" href="{{asset('dist/css/skins/_all-skins.min.css')}}">
 </head>
@@ -221,6 +222,8 @@
 <script src="{{asset('bower_components/fastclick/lib/fastclick.js')}}"></script>
 <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
 <script src="{{asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+<script src="{{asset('bower_components/moment/min/moment.min.js')}}"></script>
+<script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 
 </body>
 

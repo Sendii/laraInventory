@@ -15,20 +15,25 @@ class CreateSiswasTable extends Migration
     {
         Schema::create('siswas', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('nis')->nullable();
+            $table->text('nohp')->nullable();
+            $table->text('nik')->nullable();
+            $table->text('nisn')->nullable();
+            $table->text('nama')->nullable();
             $table->integer('id_kelas')->unsigned();
-            $table->foreign('id_kelas')->references('id')->on('kelas');
-            $table->text('namalengkap');
-            $table->integer('phone');
-            $table->integer('nisn');
+            $table->foreign('id_kelas')->references('id')->on('kelas')->onDelete('cascade');
+            $table->text('jenkel')->nullable();
+            $table->string('tempat')->nullable();
+            $table->string('tanggallahir')->nullable();
+            $table->string('agama')->nullable();
+            $table->string('namaayah')->nullable();
+            $table->string('namaortu')->nullable();
+            $table->string('namaibu')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('nomorijazah')->nullable();
+            $table->string('tahun')->nullable();
             $table->timestamps();
         });
-
-        DB::table('siswas')->insert([
-            'id_kelas' => 12,
-            'namalengkap' => "Sendi Dian Hadiwijaya",
-            'phone' => '0895434312',
-            'nisn' => '11083'
-        ]);
     }
 
     /**
