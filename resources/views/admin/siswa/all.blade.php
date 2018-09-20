@@ -37,8 +37,15 @@
                           <th style="text-align: center;">No. </th>
                           <th style="text-align: center;">Nama Siswa</th>
                           <th style="text-align: center;">Kelas</th>
+                          <th style="text-align: center;">NIS. </th>
                           <th style="text-align: center;">Nisn</th>
-                          <th style="text-align: center;">Telepon</th>
+                          <th style="text-align: center;">NIK. </th>
+                          <th style="text-align: center;">No. Hp</th>
+                          <th style="text-align: center;">JenKel</th>
+                          <th style="text-align: center;">TTL</th>
+                          <th style="text-align: center;">Agama</th>
+                          <th style="text-align: center;">Nama Ortu</th>
+                          <th style="text-align: center;">Alamat</th>
                           @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <th style="text-align: center;">Action</th>
                           @endif
@@ -48,10 +55,17 @@
                         @foreach($siswas as $key)
                         <tr>
                           <td style="text-align: center;">{{$key->id}}</td>
-                          <td style="text-align: center;">{{$key->namalengkap}}</td>
+                          <td style="text-align: center;">{{$key->nama}}</td>
                           <td style="text-align: center;">{{$key->Kelas->kelas}}</td>
+                          <td style="text-align: center;">{{$key->nis}}</td>
                           <td style="text-align: center;">{{$key->nisn}}</td>
-                          <td style="text-align: center;">{{$key->phone}}</td>
+                          <td style="text-align: center;">{{$key->nik}}</td>
+                          <td style="text-align: center;">{{$key->nohp}}</td>
+                          <td style="text-align: center;">{{$key->jenkel}}</td>
+                          <td style="text-align: center;">{{$key->tempat}} / {{str_limit($key->tanggallahir, 11)}}</td>
+                          <td style="text-align: center;">{{$key->agama}}</td>
+                          <td style="text-align: center;">{{$key->namaayah}} / {{$key->namaibu}}</td>
+                          <td style="text-align: center;">{{str_limit($key->alamat, 30)}}</td>
                           @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <td style="text-align: center;">
                             <a href="{{url('siswa/edit/'.$key->id)}}"><button class="btn btn-warning"><i class="fa fa-edit"></i></button></a>

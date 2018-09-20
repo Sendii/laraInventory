@@ -21,7 +21,7 @@ class CreateSiswasTable extends Migration
             $table->text('nisn')->nullable();
             $table->text('nama')->nullable();
             $table->integer('id_kelas')->unsigned();
-            $table->foreign('id_kelas')->references('id')->on('kelas')->onDelete('cascade');
+            // $table->foreign('id_kelas')->nullable()->references('id')->on('kelas')->onDelete('cascade');
             $table->text('jenkel')->nullable();
             $table->string('tempat')->nullable();
             $table->string('tanggallahir')->nullable();
@@ -34,6 +34,7 @@ class CreateSiswasTable extends Migration
             $table->string('tahun')->nullable();
             $table->timestamps();
         });
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 
     /**

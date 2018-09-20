@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function downloadExcel($type)
     {
         $data = \App\Siswa::get()->toArray();
-        return Excel::create('itsolutionstuff_example', function($excel) use ($data) {
+        return Excel::create('sisawReport', function($excel) use ($data) {
             $excel->sheet('mySheet', function($sheet) use ($data)
             {
                 $sheet->fromArray($data);
@@ -46,7 +46,7 @@ class HomeController extends Controller
                 }
                 if(!empty($insert)){
                     DB::table('siswas')->insert($insert);
-                    dd('Insert Record successfully.');
+                    return redirect(url('siswa'));
                 }
             }
         }
