@@ -28,7 +28,7 @@
                     <div class="input-group-addon">
                       <i class="fa fa-user"></i>
                     </div>
-                    <input type="text" class="form-control" name="nama_supplier" value="{{$barang->nm_supplier}}" placeholder="Nama Supplier" readonly>
+                    <input type="text" class="form-control" name="nama_supplier" value="{{$barang->Supplier->nm_supplier}}" placeholder="Nama Supplier" readonly>
                   </div>
                 </div>
                 <label class="col-sm-2 control-label">Stock Barang</label>

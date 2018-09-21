@@ -55,7 +55,7 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                               @if(is_null($key->keterangan))
                               <?php
                               $a = \App\Peminjaman::where('id_barang', $key->id)->value('id_siswa');
-                              $siswa = \App\Siswa::where('id', $a)->value('namalengkap');
+                              $siswa = \App\Siswa::where('id', $a)->value('nama');
                               ?>
                               <span class="label label-danger"><i class="fa fa-close"></i>&nbsp;{{ $key->status }}
                               </span> <br> {{ $siswa }}

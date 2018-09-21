@@ -28,7 +28,6 @@
                 <div class="box-body">
                   @if (Auth::user() && Auth::user()->akses == 'Admin')
                   <button style="margin-bottom: 10px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-addSiswa"><i class="fa fa-plus-square"></i>&nbsp;Tambah Siswa</button>
-                  <button style="margin-bottom: 10px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-excel"><i class="fa fa-plus-square"></i>&nbsp;Excel</button>
                   @endif
                   <div class="table-responsive">
                     <table id="example" class="table table-bordered table-hover" role="grid" aria-describedby="example1_info" data>
@@ -60,16 +59,29 @@
                           <td style="text-align: center;">{{$key->nis}}</td>
                           <td style="text-align: center;">{{$key->nisn}}</td>
                           <td style="text-align: center;">{{$key->nik}}</td>
-                          <td style="text-align: center;">{{$key->nohp}}</td>
+                          <td style="text-align: center;">
+                            @if(is_null($key->nohp))
+                              <b><i>-</i></b>
+                            @elseif(!is_null($key->nohp))
+                              {{$key->nohp}}
+                            @endif
+                          </td>
                           <td style="text-align: center;">{{$key->jenkel}}</td>
                           <td style="text-align: center;">{{$key->tempat}} / {{str_limit($key->tanggallahir, 11)}}</td>
                           <td style="text-align: center;">{{$key->agama}}</td>
-                          <td style="text-align: center;">{{$key->namaayah}} / {{$key->namaibu}}</td>
+                          <td style="text-align: center;">
+                            @if(is_null($key->namaayah))
+                            {{$key->namaortu}}
+                            @elseif(!is_null($key->namaayah))
+                            {{$key->namaayah}} / {{$key->namaibu}}
+                            @endif
+                          </td>
                           <td style="text-align: center;">{{str_limit($key->alamat, 30)}}</td>
                           @if (Auth::user() && Auth::user()->akses == 'Admin')
                           <td style="text-align: center;">
-                            <a href="{{url('siswa/edit/'.$key->id)}}"><button class="btn btn-warning"><i class="fa fa-edit"></i></button></a>
-                            <a href="{{url('siswa/delete/'.$key->id)}}" onclick="return confirm('are u sure to delete {{ $key->namalengkap }} ?')"><button class="btn btn-danger"><i class="fa fa-trash-o"></i></button></a>
+                            <a href="{{url('siswa/edit/'.$key->id)}}"><i class="fa fa-edit"></i></a>
+                            <a href="{{url('siswa/delete/'.$key->id)}}" onclick="return confirm('are u sure to delete {{ $key->nama }} ?')"><i class="fa fa-trash-o"></i></a>
+                            <a href="{{url('siswa/detail/'.$key->id)}}"><i class="fa fa-book"></i></a>
                           </td>
                           @endif
                         </tr>
@@ -121,39 +133,6 @@
                     </div>
                   </div>
                 </div>
-                <!-- FORM EXCEL -->
-                <div class="modal fade in" id="modal-excel" style="padding-right: 15px;">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">×</span></button>
-                          <center><h4 class="modal-title">Import - Export</h4></center>
-                        </div>
-                        <div class="modal-body">
-                          <form method="POST" action="{{url('siswa/save')}}">
-                            <div class="container">
-                              <a href="{{ URL::to('downloadExcel/xls') }}">Download Excel xls</a>
-                              <a href="{{ URL::to('downloadExcel/xlsx') }}">Download Excel xlsx</a>
-                              <a href="{{ URL::to('downloadExcel/csv') }}">Download CSV</a>
-                              <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;" action="{{ URL::to('importExcel') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <input type="file" name="import_file" /><br>
-                                <button class="btn btn-primary">Import File</button>
-                              </form>
-                            </div>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}">
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Kembali</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- END -->
-
                 <script type="text/javascript" src="{{asset('js/datatable/jquery.dataTables.min.js')}}"></script>
                 <script type="text/javascript" src="{{asset('js/datatable/dataTables.bootstrap.min.js')}}"></script>
                 <script src="{{asset('js/sweetalert.min.js')}}"></script>

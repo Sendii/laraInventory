@@ -44,7 +44,7 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                       <tbody>
                         @foreach($rusak as $key)
                         <?php 
-                        $namapeminjam = \App\Siswa::where('id', $key->id_siswa)->value('namalengkap');
+                        $namapeminjam = \App\Siswa::where('id', $key->id_siswa)->value('nama');
                         $namabarang = \App\Income::where('id', $key->id_barang)->value('nama_barang');
                         $kodebarang = \App\Income::where('id', $key->id_barang)->value('kode_barang');
                         $waktuminjam = \App\Peminjaman::where('id', $key->id_peminjaman)->value('created_at');

@@ -19,6 +19,4 @@ class Peminjaman extends Model
     public function Kelas() {
     	return $this->belongsTo('App\Kelas', 'id_siswa', 'id');
     }
-
-    public $timestamps = false;
 }

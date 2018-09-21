@@ -158,7 +158,23 @@
                 <li><a href="{{url('barang')}}"><i class="fa fa-book"></i> <span>Barang</span></a></li>
             </li>
             @elseif (Auth::user() && Auth::user()->akses == 'Admin')
-            <li><a href="{{url('siswa')}}"><i class="fa fa-user"></i> <span>Siswa</span></a></li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-users"></i>
+                    <span>Siswa</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href=" {{url('/siswa')}} "><i class="fa fa-user"></i>Semua Siswa</a></li>
+                    <li><a href=" {{url('/siswa/10')}} "><i class="fa fa-user"></i>Siswa Kelas 10</a></li>
+                    <li><a href=" {{url('/siswa/11')}} "><i class="fa fa-user"></i> Siswa Kelas 11</a></li>
+                    <li><a href=" {{url('/siswa/12')}} "><i class="fa fa-user"></i> Siswa Kelas 12</a></li>
+                    <li><a href=" {{url('/siswa/importExport')}} "><i class="fa fa-book"></i> Excel</a></li>
+                </ul>
+            </li>
+
             <li><a href="{{url('pelanggan')}}"><i class="fa fa-users"></i> <span>Pelanggan</span></a></li>
             <li><a href="{{url('pengguna')}}"><i class="fa fa-book"></i> <span>Pengguna</span></a></li>
             <li><a href="{{url('supplier')}}"><i class="fa fa-users"></i> <span>Supplier</span></a></li>

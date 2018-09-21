@@ -16,73 +16,99 @@ class CreateKelasTable extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->increments('id');
             $table->text('kelas');
+            $table->string('walikelas');
             $table->timestamps();
         });
         DB::table('kelas')->insert([
-            'kelas' => "X-AK1"
+            'kelas' => "Manayaa",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "X-AK2"
+            'kelas' => "X-AK1",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "XI-AK1"
+            'kelas' => "X-AK2",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "XI-AK2"
+            'kelas' => "XI-AK1",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "XII-AK1"
+            'kelas' => "XI-AK2",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "XII-AK2"
-        ]);
-
-        DB::table('kelas')->insert([
-            'kelas' => "X-AP1"
+            'kelas' => "XII-AK1",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "X-AP2"
-        ]);
-        DB::table('kelas')->insert([
-            'kelas' => "XI-AP1"
-        ]);
-        DB::table('kelas')->insert([
-            'kelas' => "XI-AP2"
-        ]);
-        DB::table('kelas')->insert([
-            'kelas' => "XII-AP1"
-        ]);
-        DB::table('kelas')->insert([
-            'kelas' => "XII-AP2"
+            'kelas' => "XII-AK2",
+            'walikelas' => "Bu siapa"
         ]);
 
         DB::table('kelas')->insert([
-            'kelas' => "X-PM1"
+            'kelas' => "X-AP1",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "X-PM2"
+            'kelas' => "X-AP2",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "XI-PM1"
+            'kelas' => "XI-AP1",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "XI-PM2"
+            'kelas' => "XI-AP2",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "XII-PM1"
+            'kelas' => "XII-AP1",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "XII-PM2"
+            'kelas' => "XII-AP2",
+            'walikelas' => "Bu siapa"
         ]);
 
         DB::table('kelas')->insert([
-            'kelas' => "X-RPL"
+            'kelas' => "X-PM1",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "XI-RPL"
+            'kelas' => "X-PM2",
+            'walikelas' => "Bu siapa"
         ]);
         DB::table('kelas')->insert([
-            'kelas' => "XII-RPL"
+            'kelas' => "XI-PM1",
+            'walikelas' => "Bu siapa"
+        ]);
+        DB::table('kelas')->insert([
+            'kelas' => "XI-PM2",
+            'walikelas' => "Bu siapa"
+        ]);
+        DB::table('kelas')->insert([
+            'kelas' => "XII-PM1",
+            'walikelas' => "Bu siapa"
+        ]);
+        DB::table('kelas')->insert([
+            'kelas' => "XII-PM2",
+            'walikelas' => "Bu siapa"
+        ]);
+
+        DB::table('kelas')->insert([
+            'kelas' => "X-RPL",
+            'walikelas' => "Bu siapa"
+        ]);
+        DB::table('kelas')->insert([
+            'kelas' => "XI-RPL",
+            'walikelas' => "Bu siapa"
+        ]);
+        DB::table('kelas')->insert([
+            'kelas' => "XII-RPL",
+            'walikelas' => "Bu siapa"
         ]);
     }
 

@@ -47,7 +47,7 @@
                         <tr>
                           <td style="text-align: center;">{{$key->id}}</td>
                           <td style="text-align: center;">
-                            <a href="{{url('barang/history/nama', [$key->Siswa->namalengkap])}}">{{ $key->Siswa->namalengkap }}</a>
+                            <a href="{{url('barang/history/nama', [$key->Siswa->nama])}}">{{ $key->Siswa->nama }}</a>
                             <b><i><br>=> {{ $getkelas }}</i></b>
                           </td>
                           <td style="text-align: center;">{{$key->nama_barang}}</td>

@@ -44,14 +44,14 @@ $_requestUrl = basename($_SERVER['REQUEST_URI']);
                       <tbody>
                         @foreach($kode as $key)
                         <?php 
-                        $nama = \App\Siswa::where('id', $key->id_siswa)->value('namalengkap');
+                        $nama = \App\Siswa::where('id', $key->id_siswa)->value('nama');
                         $supplier = \App\Income::where('id', $key->id_barang)->value('nm_supplier');
                         $nama_barang = \App\Income::where('id', $key->id_barang)->value('nama_barang');
                         $jml_barang = \App\Income::where('id', $key->id_barang)->value('qty');
                          ?>
                         <tr>
                           <td style="text-align: center;">{{$key->id}}</td>
-                          <td style="text-align: center;">{{$key->Siswa->namalengkap}}</td>
+                          <td style="text-align: center;">{{$key->Siswa->nama}}</td>
                           <td style="text-align: center;">
                             <a href="{{url('supplier', [$key->nm_supplier])}}">{{ $supplier }}</a></td>
                             <td style="text-align: center;">{{$nama_barang}}</td>

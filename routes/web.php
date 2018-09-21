@@ -14,10 +14,6 @@ Route::get('/date', function() {
 	$a = DB::table('peminjamans')->whereBetween('created_at', array('2018-09-21', '2018-09-25'))->get();
 	dd($a);
 });
-Route::get('importExport', 'HomeController@importExport');
-Route::get('downloadExcel/{type}', 'HomeController@downloadExcel');
-Route::post('importExcel', 'HomeController@importExcel');
-
 Route::get('/', function () {
 	return view('welcome');
 });
@@ -48,10 +44,17 @@ Route::middleware(['admins'], 'auth')->group(function() {
 	});
 
 	Route::group(['prefix' => 'siswa'] , function(){
+		Route::get('detail/{id}', 'HomeController@detailSiswa');
+		Route::get('/10', 'HomeController@allSiswa');
+		Route::get('/11', 'HomeController@allSiswa');
+		Route::get('/12', 'HomeController@allSiswa');
 		Route::post('save', 'HomeController@saveSiswa');
 		Route::get('/edit/{id}','HomeController@editSiswa');
 		Route::post('update','HomeController@updateSiswa');
 		Route::get('delete/{id}','HomeController@deleteSiswa');
+		Route::get('importExport', 'HomeController@importExport');
+		Route::get('downloadExcel/{type}', 'HomeController@downloadExcel');
+		Route::post('importExcel', 'HomeController@importExcel');
 	});
 
 	Route::group(['prefix' => 'barang'] , function(){

@@ -14,7 +14,7 @@
         </div>
         <br>
         <center>
-          <h4>Peminjaman Barang.</h4></center>
+          <h4>Peminjaman Barangs.</h4></center>
           <br>
           <div class="box-body">
 
@@ -74,9 +74,9 @@
                       <i class="fa fa-book"></i>
                     </div>
                     <select name="namapeminjam" class="form-control select2" required>
-                    	@foreach($siswas as $siswa)
                     	<option value="">Pilih Peminjam</option>
-                    	<option value="{{ $siswa->id }}">{{ $siswa->namalengkap }}</option>
+                      @foreach($siswas as $siswa)
+                    	<option value="{{ $siswa->id }}">{{ $siswa->nama }}  ||  {{$siswa->Kelas->kelas}}</option>
                     	@endforeach
                     </select>
                   </div>

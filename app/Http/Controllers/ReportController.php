@@ -34,7 +34,7 @@ class ReportController extends Controller
             })->get();
             if (!empty($data) && $data->count()) {
                 foreach ($data as $key => $value) {
-                    $insert[] = ['id' => $value->id, 'id_kelas' => $value->id_kelas, 'namalengkap' => $value->namalengkap, 'phone' => $value->phone, 'nisn' => $value->nisn];
+                    $insert[] = ['id' => $value->id, 'id_kelas' => $value->id_kelas, 'nama' => $value->nama, 'phone' => $value->phone, 'nisn' => $value->nisn];
                 }
                 if (!empty($insert)) {
                     DB::table('items')->insert($insert);

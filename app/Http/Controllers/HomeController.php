@@ -22,35 +22,35 @@ class HomeController extends Controller
 
     public function importExport()
     {
-        return view('importExport');
+      return view('importExport');
     }
     public function downloadExcel($type)
     {
-        $data = \App\Siswa::get()->toArray();
-        return Excel::create('sisawReport', function($excel) use ($data) {
-            $excel->sheet('mySheet', function($sheet) use ($data)
-            {
-                $sheet->fromArray($data);
-            });
-        })->download($type);
+      $data = \App\Siswa::get()->toArray();
+      return Excel::create('sisawReport', function($excel) use ($data) {
+        $excel->sheet('mySheet', function($sheet) use ($data)
+        {
+          $sheet->fromArray($data);
+        });
+      })->download($type);
     }
     public function importExcel()
     {
-        if(Input::hasFile('import_file')){
-            $path = Input::file('import_file')->getRealPath();
-            $data = Excel::load($path, function($reader) {
-            })->get();
-            if(!empty($data) && $data->count()){
-                foreach ($data as $key => $value) {
-                    $insert[] = ['nis' => $value->nis, 'nohp' => $value->nohp, 'nik' => $value->nik, 'nisn' => $value->nisn, 'nama' => $value->nama, 'id_kelas' => $value->id_kelas, 'jenkel' => $value->jenkel, 'tempat' => $value->tempat, 'tanggallahir' => $value->tanggallahir, 'agama' => $value->agama, 'namaortu' => $value->namaortu, 'namaayah' => $value->namaayah, 'namaibu' => $value->namaibu, 'alamat' => $value->alamat, 'nomorijazah' => $value->nomorijazah, 'tahun' => $value->tahun];
-                }
-                if(!empty($insert)){
-                    DB::table('siswas')->insert($insert);
-                    return redirect(url('siswa'));
-                }
-            }
+      if(Input::hasFile('import_file')){
+        $path = Input::file('import_file')->getRealPath();
+        $data = Excel::load($path, function($reader) {
+        })->get();
+        if(!empty($data) && $data->count()){
+          foreach ($data as $key => $value) {
+            $insert[] = ['nis' => $value->nis, 'nohp' => $value->nohp, 'nik' => $value->nik, 'nisn' => $value->nisn, 'nama' => $value->nama, 'id_kelas' => $value->id_kelas, 'jenkel' => $value->jenkel, 'tempat' => $value->tempat, 'tanggallahir' => $value->tanggallahir, 'agama' => $value->agama, 'namaortu' => $value->namaortu, 'namaayah' => $value->namaayah, 'namaibu' => $value->namaibu, 'alamat' => $value->alamat, 'nomorijazah' => $value->nomorijazah, 'tahun' => $value->tahun];
+          }
+          if(!empty($insert)){
+            DB::table('siswas')->insert($insert);
+            return redirect(url('siswa'));
+          }
         }
-        return back();
+      }
+      return back();
     }
 
     public function index()
@@ -95,17 +95,29 @@ class HomeController extends Controller
     }
 
     public function allsiswa() {
-      $siswa['siswas'] = \App\Siswa::paginate(15);
-      $siswa['kelas'] = \App\Kelas::all();
+      $_requestUrl = basename($_SERVER['REQUEST_URI']);
+      if ($_requestUrl == "siswa") {
+        $siswa['siswas'] = \App\Siswa::paginate(700);
+        $siswa['kelas'] = \App\Kelas::all();
+      }elseif ($_requestUrl == "10") {
+        $siswa['siswas'] = \App\Siswa::whereIn('id_kelas', [2,3,8,9,14,15,20])->get();
+        $siswa['kelas'] = \App\Kelas::all();
+      }elseif ($_requestUrl == "11") {
+        $siswa['siswas'] = \App\Siswa::whereIn('id_kelas', [4,5,10,11,16,17,21])->get();
+        $siswa['kelas'] = \App\Kelas::all();
+      }elseif ($_requestUrl == "12") {
+        $siswa['siswas'] = \App\Siswa::whereIn('id_kelas', [6,7,12,13,18,19,22])->get();
+        $siswa['kelas'] = \App\Kelas::all();
+      }
 
       return view('admin/siswa.all')->with($siswa);
     }
 
     public function saveSiswa(Request $r) {
       $new = new \App\Siswa;
-      $new->namalengkap = $r->input('namasiswa');
+      $new->nama = $r->input('namasiswa');
       $new->id_kelas = $r->input('kelas');
-      $new->phone = $r->input('phone');
+      $new->nohp = $r->input('phone');
       $new->nisn = $r->input('nisn');
 
       $new->save();
@@ -122,10 +134,12 @@ class HomeController extends Controller
     public function updateSiswa(Request $r) {
       $edit = \App\Siswa::find($r->input('id'));
 
-      $edit->namalengkap = $r->input('nama');
+      $edit->nama = $r->input('nama');
       $edit->id_kelas = $r->input('kelas');
-      $edit->phone = $r->input('phone');
+      $edit->nis = $r->input('nis');
       $edit->nisn = $r->input('nisn');
+      $edit->alamat = $r->input('alamat');
+      $edit->nomorijazah = $r->input('nomorijazah');
 
       $edit->save();
       return redirect('siswa');
@@ -143,4 +157,24 @@ class HomeController extends Controller
     {
      return view('503');
    }
+
+   public function detailSiswa($id) {
+      $siswa['siswas'] = \App\Siswa::find($id);
+      $siswa['kelas'] = \App\Kelas::all();
+
+      return view('admin/siswa.detail', $siswa);
+   }
+
+   public function pdfview()
+    {
+      $data['barangs'] = \App\Income::all();
+      $pdf = PDF::loadView('admin/barang.report', $data);
+      return $pdf->download('invoice.pdf');
+    }
+
+    public function pdfviewPeminjaman() {
+      $barang['barangs'] = \App\Peminjaman::paginate(10);
+      $pdf = PDF::loadView('admin/barang.reportpeminjaman', $barang);
+      return $pdf->download('allPeminjaman.pdf');
+    }
  }

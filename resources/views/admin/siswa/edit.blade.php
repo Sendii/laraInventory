@@ -22,58 +22,77 @@
 							{{ csrf_field() }}
 							<input type="hidden" name="id" value="{{$edits->id}}">
 							<div class="form-group">
-								<label class="col-sm-2 control-label">Nama</label>
-								<div class="col-sm-9">
+								<label class="col-sm-1 control-label">Nama</label>
+								<div class="col-sm-4">
 									<div class="input-group text">
 										<div class="input-group-addon">
 											<i class="fa fa-user"></i>
 										</div>
-										<input type="text" class="form-control" name="nama" value="{{$edits->namalengkap}}" placeholder="Nama">
+										<input type="text" class="form-control" name="nama" value="{{$edits->nama}}" placeholder="Nama">
 									</div>
 								</div>
-								<br>
-								<br>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label">Kelas: </label>
-								<div class="col-sm-9">
+								<label class="col-sm-1 control-label">Kelas</label>
+								<div class="col-sm-4">
 									<div class="input-group text">
 										<div class="input-group-addon">
-											<i class="fa fa-black-tie"></i>
+											<i class="fa fa-user"></i>
 										</div>
 										<select name="kelas" class="form-control select2">
 											@foreach($kelass as $kelas)
-											<option value="{{$kelas->id}}"> {{$kelas->kelas}}
+											<option value="{{$kelas->id}}" {{$edits->id_kelas == $kelas->id ? 'selected' : ''}}> {{$kelas->kelas}}
 											</option>
 											@endforeach
 										</select>
 									</div>
 								</div>
+								<br>
+								<br>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">Phone</label>
-								<div class="col-sm-9">
+								<label class="col-sm-1 control-label">NIS</label>
+								<div class="col-sm-4">
 									<div class="input-group text">
 										<div class="input-group-addon">
-											<i class="fa fa-phone"></i>
+											<i class="fa fa-user"></i>
 										</div>
-										<input type="number" class="form-control" name="phone" value="{{$edits->phone}}" placeholder="Phone">
+										<input type="text" class="form-control" name="nis" value="{{$edits->nis}}" placeholder="NIS">
 									</div>
-									<br>
 								</div>
+								<label class="col-sm-1 control-label">NISN</label>
+								<div class="col-sm-4">
+									<div class="input-group text">
+										<div class="input-group-addon">
+											<i class="fa fa-user"></i>
+										</div>
+										<input type="text" class="form-control" name="nisn" value="{{$edits->nisn}}" placeholder="NIS">
+									</div>
+								</div>
+								<br>
+								<br>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">Nisn</label>
-								<div class="col-sm-9">
+								<label class="col-sm-1 control-label">Alamat</label>
+								<div class="col-sm-4">
 									<div class="input-group text">
 										<div class="input-group-addon">
-											<i class="fa fa-book"></i>
+											<i class="fa fa-user"></i>
 										</div>
-										<input type="number" class="form-control" name="nisn" value="{{$edits->nisn}}" placeholder="Nisn">
+										<input type="text" class="form-control" name="alamat" value="{{$edits->alamat}}" placeholder="NIS">
 									</div>
-									<br>
 								</div>
+								<label class="col-sm-1 control-label">No. Ijazah</label>
+								<div class="col-sm-4">
+									<div class="input-group text">
+										<div class="input-group-addon">
+											<i class="fa fa-user"></i>
+										</div>
+										<input type="text" class="form-control" name="nomorijazah" value="{{$edits->nomorijazah}}" placeholder="NIS">
+									</div>
+								</div>
+								<br>
+								<br>
 							</div>
+
 							<div>
 								<button type="submit" class="btn btn-primary pull-right"><i class="fa fa-users">&nbsp;  Submit</i></button>
 							</div>

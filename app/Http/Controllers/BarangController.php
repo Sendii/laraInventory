@@ -86,16 +86,17 @@ class BarangController extends Controller
 
     public function edit($id)
     {
-      $barangs['barangs'] = \App\Income::find($id);
+      $barangs['barang'] = \App\Income::find($id);
       return view('admin/barang.edit', $barangs);  
     }
 
     public function update(Request $request)
     {
       $b = \App\Income::find($request->input('id'));
-      $b->id_supplier = $request->nama_supplier;
-      $b->qty = $request->stock;
-      $b->nama_barang = $request->namabarang;    
+      $id = \App\Supplier::where('nm_supplier', $request->input('nama_supplier'))->value('id');
+      $b->id_supplier = $id;
+      $b->qty = $request->input('stock');
+      $b->nama_barang = $request->input('namabarang');    
       $b->save();
 
       return redirect(url('barang/diterima'));
@@ -188,14 +189,14 @@ class BarangController extends Controller
 
     public function savePengembalian(Request $r) {
       $a = $r->input('nama_peminjam');
-      $kelas = \App\Siswa::where('namalengkap', $a)->value('id');
+      $kelas = \App\Siswa::where('nama', $a)->value('id');
       // dd($r->all());
       $barang = \App\Income::find($r->input('id_barang'));
       $kembalikan = \App\Peminjaman::find($r->input('id'));
       $new2 = new \App\Income;
       $barangbermasalah = new \App\BarangRusakH;
         if($r->input('keterangan') == "Hilang"){
-        $barang->qty = $r->input('stock');
+        $barang->qty = $r->input('stock') + $r->input('jumlah');
         $kembalikan->keterangan = $r->input('keterangan');
         $kembalikan->waktukembali = date("d-m-Y");
         $kembalikan->status = "Sudah Dikembalikan";
@@ -209,7 +210,7 @@ class BarangController extends Controller
         $barangbermasalah->save();
         return redirect('barang2');  
       }elseif($r->input('keterangan') == "Rusak"){
-        $barang->qty = $r->input('stock');
+        $barang->qty = $r->input('stock') + $r->input('jumlah');
         $kembalikan->keterangan = $r->input('keterangan');
         $kembalikan->waktukembali = date("d-m-Y");
         $kembalikan->status = "Sudah Dikembalikan";
@@ -252,7 +253,7 @@ class BarangController extends Controller
     }
 
     public function terpinjamNama($nama) {
-      $a = \App\Siswa::where('namalengkap', $nama)->value('id');
+      $a = \App\Siswa::where('nama', $nama)->value('id');
       $nama = \App\Peminjaman::where('id_siswa', $a)->get();
       $first = \App\Peminjaman::where('id_siswa', $a)->first();
       return view('admin/barang.terpinjamnama')->with(['namas' => $nama, 'firsts' => $first]);

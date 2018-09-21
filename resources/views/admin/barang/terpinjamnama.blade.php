@@ -23,7 +23,7 @@
               <center>
                 <center>
                   <?php 
-                    $nama = \App\Siswa::where('id', $firsts->id_siswa)->value('namalengkap');
+                    $nama = \App\Siswa::where('id', $firsts->id_siswa)->value('nama');
                     $id_kelas = \App\Siswa::where('id', $firsts->id_siswa)->value('id_kelas');
                     $kelas = \App\Kelas::where('id', $id_kelas)->value('kelas');
                   ?>
@@ -48,7 +48,7 @@
                       <tbody>
                         @foreach($namas as $key)
                         <?php
-                          $nama = \App\Siswa::where('id', $key->id_siswa)->value('namalengkap');
+                          $nama = \App\Siswa::where('id', $key->id_siswa)->value('nama');
                           $kelas = \App\Siswa::where('id', $key->id_siswa)->value('id_kelas');
                           $getkelas = \App\Kelas::where('id', $kelas)->value('kelas');
                         ?>

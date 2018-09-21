@@ -33,7 +33,7 @@
                       <i class="fa fa-user"></i>
                     </div>
                     <?php
-                      $namapeminjam = \App\Siswa::where('id', $barang->id_siswa)->value('namalengkap');
+                      $namapeminjam = \App\Siswa::where('id', $barang->id_siswa)->value('nama');
                     ?>
                     <input type="text" class="form-control" name="nama_peminjam" value="{{$namapeminjam}}" placeholder="Nama Peminjam" readonly>
                   </div>
@@ -59,7 +59,8 @@
                     </div>
                     <?php $a = \App\Income::where('id', $barang->id_barang)->value('qty'); ?>
                     <input type="hidden" class="form-control" name="stock" value="{{ $a }}" placeholder="Jumlah" readonly>
-                    <input type="number" class="form-control" name="jumlah" value="{{$barang->jumlahminjam}}" placeholder="Jumlah" readonly>
+                    <input type="hidden" class="form-control" name="stocker" value="{{$barang->jumlahminjam}}" placeholder="Jumlah">
+                    <input type="number" class="form-control" name="jumlah" value="{{$barang->jumlahminjam}}" placeholder="Jumlah"  min="{{$barang->jumlahminjam}}" max="{{$barang->jumlahminjam}}">
                   </div>
                   <br>
                 </div>
@@ -79,6 +80,36 @@
                 <br>
                 <br>
               </div>
+              <!-- <div class="form-group">
+                <label class="col-sm-2 control-label">Jumlah Rusak</label>
+                <div class="col-sm-3">
+                  <div class="input-group text">
+                    <div class="input-group-addon">
+                      <i class="fa fa-envelope"></i>
+                    </div>
+                    <?php $a = \App\Income::where('id', $barang->id_barang)->value('qty'); ?>
+                    <input type="number" class="form-control" name="barangrusak" placeholder="Jumlah Barang Rusak">
+                  </div>
+                  <br>
+                </div>
+                <br>
+                <br>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Jumlah Hilang</label>
+                <div class="col-sm-3">
+                  <div class="input-group text">
+                    <div class="input-group-addon">
+                      <i class="fa fa-envelope"></i>
+                    </div>
+                    <?php $a = \App\Income::where('id', $barang->id_barang)->value('qty'); ?>
+                    <input type="number" class="form-control" name="baranghilang" value="" placeholder="Jumlah Barang Hilang">
+                  </div>
+                  <br>
+                </div>
+                <br>
+                <br>
+              </div> -->
               <div>
                 <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-plus-square">&nbsp;  Kembalikan</i></button>
               </div>
