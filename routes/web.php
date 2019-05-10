@@ -17,7 +17,7 @@ Route::get('/date', function() {
 Route::get('/', function () {
 	return view('welcome');
 });
-Route::get('pagenotfound', ['as' => 'notfound', 'uses' => 'HomeController@pagenotfound']);
+// Route::get('pagenotfound', ['as' => 'notfound', 'uses' => 'HomeController@pagenotfound']);
 Route::get('pdfview', 'HomeController@pdfview')->name('generate-pdf');
 Route::get('pdfviewPeminjaman', 'HomeController@pdfviewPeminjaman');
 

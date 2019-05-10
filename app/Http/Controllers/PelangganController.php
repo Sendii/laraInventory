@@ -29,13 +29,18 @@ class PelangganController extends Controller
     public function edit($id)
     {
       $pelanggan = \App\Pelanggan::find($id);
-      return view('admin/pelanggan.edit', ['pelanggans' => $pelanggan]);  
+      if (isset($pelanggan)) {
+        return view('admin/pelanggan.edit', ['pelanggans' => $pelanggan]);  
+      }else{
+        echo "ada kesalahan";
+      }
     }
 
     public function update(Request $request)
     {
       $b = \App\Pelanggan::find($request->input('id'));
-      $b->nama_outlet = $request->nama;
+      if (isset($b)) {
+              $b->nama_outlet = $request->nama;
       $b->alamat = $request->alamat;
       $b->telepon = $request->telepon;    
       $b->npwp = $request->npwp;    
@@ -43,6 +48,10 @@ class PelangganController extends Controller
       $b->save();
 
       return redirect(url('pelanggan'));
+      }else{
+        echo "cie ada salaa";
+        return;
+      }
     }
 
     public function delete($id){
